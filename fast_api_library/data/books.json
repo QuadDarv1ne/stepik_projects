@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "title": "Гордость и предубеждение",
+    "author": "Джейн Остин",
+    "publication_year": 1813,
+    "description": "Роман о жизни семьи Беннет, где главная героини Элизабет Беннет пытается найти любовь и счастье в жестоком обществе XIX века.",
+    "image": "https://cv9.litres.ru/pub/c/cover_330/6257491.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Война и мир",
+    "author": "Лев Толстой",
+    "publication_year": 1869,
+    "description": "Эпический роман о Российской империи во время войн с Наполеоном в начале XIX века, с фокусом на судьбах пяти аристократических семей.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/T25-011.jpg/270px-T25-011.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Преступление и наказание",
+    "author": "Федор Достоевский",
+    "publication_year": 1866,
+    "description": "Роман о молодом студенте Раскольникове, который совершает убийство и сталкивается с муками совести и последствиями своего деяния.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 4,
+    "title": "Унесенные ветром",
+    "author": "Маргарет Митчелл",
+    "publication_year": 1936,
+    "description": "Роман о жизни южных штатов Америки во время Гражданской войны, с фокусом на главной героине Скарлетт О'Хара и ее отношениях с Реттом Батлером.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 5,
+    "title": "Мастер и Маргарита",
+    "author": "Михаил Булгаков",
+    "publication_year": 1967,
+    "description": "Сатирический роман о Советском Союзе, где дьявол по имени Воланд и его свита посещают Москву и создают хаос в жизни местных жителей.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 6,
+    "title": "Три мушкетера",
+    "author": "Александр Дюма",
+    "publication_year": 1844,
+    "description": "Роман о приключениях трех мушкетеров Атоса, Портоса и Арамиса и их юного друга Д'Артаньяна во времена короля Людовика XIII.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 7,
+    "title": "Над пропастью во ржи",
+    "author": "Джером Сэлинджер",
+    "publication_year": 1951,
+    "description": "Роман о подростке по имени Холден Колфилд, который бунтует против общественных норм и ищет свое место в жизни.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 8,
+    "title": "Великий Гэтсби",
+    "author": "Фрэнсис Скотт Фицджеральд",
+    "publication_year": 1925,
+    "description": "Роман о жизни американской элиты в 1920-х годах.",
+    "image": "https://upload.wikimedia.org/wikipedia/"
+  },
+  {
+    "id": 9,
+    "title": "Атлант расправил плечи",
+    "author": "Айн Рэнд",
+    "publication_year": 1957,
+    "description": "Философский роман о свободе индивидуального выбора и капитализме.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Atlas_Shrugged_%281957_1st_ed%29_-_Ayn_Rand.jpg/274px-Atlas_Shrugged_%281957_1st_ed%29_-_Ayn_Rand.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Властелин колец",
+    "author": "Джон Р.Р. Толкин",
+    "publication_year": 1954,
+    "description": "Эпический фэнтезийный роман о фантастическом мире Средиземья, где главный герой Фродо Бэггинс должен уничтожить Кольцо Всевластья.",
+    "image": "https://www.litres.ru/pub/c/cover/147321.jpg"
+  },
+  {
+    "id": 11,
+    "title": "Грозовой перевал",
+    "author": "Эмили Бронте",
+    "publication_year": 1847,
+    "description": "Роман о запретной любви между Кэтрин Эрншоу и Хитклиффом в графстве Йоркшир в начале XIX века.",
+    "image": "https://cdn.azbooka.ru/cv/w1100/cee1c9e4-2397-4940-a78c-29710f0eb562.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "publication_year": 1932,
+    "description": "A dystopian novel about a future society where people live in an ideal world but are deprived of freedom and individuality.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Q-WHG513YbKUcAhLPLt8BGwdGrNjg-ALFQ&s.jpg"
+  },
+  {
+    "id": 13,
+    "title": "1984",
+    "author": "George Orwell",
+    "publication_year": 1949,
+    "description": "A dystopian novel about a future society where the government controls people's lives and suppresses freedom of thought and speech.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_aRZST6Avv02wKdAUFlNLFxW14sGhOvlymQ&s.jpg"
+  },
+  {
+    "id": 14,
+    "title": "One Hundred Years of Solitude",
+    "author": "Gabriel Garcia Marquez",
+    "publication_year": 1967,
+    "description": "A magical realist novel about the life of the Buendia family in the fictional country of Macondo.",
+    "image": "https://litres.ru/pub/c/cover/4368065.jpg"
+  },
+  {
+    "id": 15,
+    "title": "The Adventures of Tom Sawyer",
+    "author": "Mark Twain",
+    "publication_year": 1876,
+    "description": "A novel about a boy named Tom Sawyer and his adventures in the town of St. Petersburg in the mid-19th century.",
+    "image": "https://cv6.litres.ru/pub/c/cover_415/19047162.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Three Men in a Boat (To Say Nothing of the Dog)",
+    "author": "Jerome K. Jerome",
+    "publication_year": 1889,
+    "description": "A humorous novel about three friends going on a short trip down the Thames River in a boat with their dog.",
+    "image": "https://cdn.azbooka.ru/cv/w1100/a0c309b2-97c0-4d02-a6e2-6b8cf556f71c.jpg"
+  },
+  {
+    "id": 17,
+    "title": "The War of the Worlds",
+    "author": "H.G. Wells",
+    "publication_year": 1898,
+    "description": "A science fiction novel about the invasion of Earth by Martians and humanity's struggle for survival.",
+    "image": "https://img4.labirint.ru/rc/ac82584765fbf46b1ec58df7b8fe48a5/363x561q80/books43/423284/cover.jpg?1612970707"
+  },
+  {
+    "id": 18,
+    "title": "Requiem for a Dream",
+    "author": "Hubert Selby",
+    "publication_year": 1978,
+    "description": "A novel about four young people facing the consequences of their addictions.",
+    "image": "https://cdn1.ozone.ru/s3/multimedia-x/6853846605.jpg"
+  }
+]
