@@ -71,7 +71,16 @@
 
 🌐 [Курс №9 «❂ 3D моделирование и анимация персонажей в Blender»](https://stepik.org/a/189418)
 
+🌐 [Курс №10 «Системное администрирование в Linux»](https://stepik.org/a/207061)
+
+🌐 [Погружение в Data Science и машинное обучение](https://stepik.org/a/205756)
+
+🌐 [PostgreSQL для начинающих: от основ SQL до администрирования БД](https://stepik.org/a/206413)
+
+🌐 [SQL для начинающих: от основ до администрирования баз данных](https://stepik.org/course/210134/promo)
+
 ![DupleyMI.jpg](img/DupleyMI.jpg)
+
 ### Обо мне:
 #### 💼 Автор курсов: Дуплей Максим Игоревич
 #### 📲 Telegram: @QuadD4rv1n7
