@@ -1,7 +1,6 @@
 fastapi
 uvicorn
 sqlalchemy
-alembic
-python-multipart
-aiofiles
+pydantic
 jinja2
+python-multipart
