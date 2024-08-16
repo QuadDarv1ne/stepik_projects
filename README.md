@@ -1,10 +1,10 @@
 ## Итоговые проекты курсов на платформе Stepik
 
-### [1️⃣ Библиотека книг на Fast API](https://github.com/QuadDarv1ne/stepik_projects/fast_api_library)
+### [1️⃣ Библиотека книг на Fast API](https://github.com/QuadDarv1ne/stepik_projects/tree/master/fast_api_library)
 
-### [2️⃣ Медиа-платформа на Fast API](https://github.com/QuadDarv1ne/stepik_projects/fast_api_media_platform)
+### [2️⃣ Медиа-платформа на Fast API](https://github.com/QuadDarv1ne/stepik_projects/tree/master/fast_api_media_platform)
 
-### [3️⃣ Taskify — веб-приложение для управления задачами](https://github.com/QuadDarv1ne/stepik_projects/taskify)
+### [3️⃣ Taskify — веб-приложение для управления задачами](https://github.com/QuadDarv1ne/stepik_projects/tree/master/taskify)
 
 ### [4️⃣ в разработке](в разработке)
 
