@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskify - Список задач</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>Taskify</h1>
+            <div>
+                <a href="/add" class="btn btn-light mr-2">Добавить задачу</a>
+                <button id="theme-toggle" class="btn btn-light">Темный режим</button>
+            </div>
+        </div>
+    </header>
+    <main class="container my-4">
+        <form method="get" class="mb-4 d-flex">
+            <div class="form-group flex-grow-1 mr-2">
+                <input type="text" name="search" class="form-control" placeholder="Поиск задач" value="{{ request.query_params.get('search', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <select name="status" class="form-control">
+                    <option value="">Все статусы</option>
+                    <option value="completed" {% if request.query_params.get('status') == 'completed' %}selected{% endif %}>Выполнено</option>
+                    <option value="pending" {% if request.query_params.get('status') == 'pending' %}selected{% endif %}>В процессе</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="priority" class="form-control">
+                    <option value="">Все приоритеты</option>
+                    <option value="high" {% if request.query_params.get('priority') == 'high' %}selected{% endif %}>Высокий</option>
+                    <option value="medium" {% if request.query_params.get('priority') == 'medium' %}selected{% endif %}>Средний</option>
+                    <option value="low" {% if request.query_params.get('priority') == 'low' %}selected{% endif %}>Низкий</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary ml-2">Фильтр</button>
+        </form>
+        <div class="row">
+            {% for task in tasks %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ task.title }} {% if task.priority %}<span class="badge badge-secondary">{{ task.priority|capitalize }}</span>{% endif %}</h5>
+                        <p class="card-text">{{ task.description }}</p>
+                        <p class="card-text">Статус: <span class="badge {% if task.completed %}badge-success{% else %}badge-warning{% endif %}">{{ 'Выполнено' if task.completed else 'В процессе' }}</span></p>
+                        <p class="card-text">Срок: {{ task.due_date if task.due_date else 'Без срока' }}</p>
+                        <a href="/tasks/{{ task._id }}" class="btn btn-info">Просмотр</a>
+                        <a href="/tasks/{{ task._id }}/edit" class="btn btn-warning">Редактировать</a>
+                        <a href="/tasks/{{ task._id }}/delete" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?');">Удалить</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    Нет задач для отображения.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.textContent = document.body.classList.contains('dark-mode') ? 'Светлый режим' : 'Темный режим';
+        });
+    </script>
+    <style>
+        body.dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+        body.dark-mode .card {
+            background-color: #495057;
+            border-color: #343a40;
+        }
+        body.dark-mode .btn-primary, body.dark-mode .btn-info, body.dark-mode .btn-warning, body.dark-mode .btn-danger {
+            border-color: #f8f9fa;
+        }
+        body.dark-mode header {
+            background-color: #212529;
+        }
+        body.dark-mode .form-control, body.dark-mode .btn-light {
+            background-color: #495057;
+            color: #f8f9fa;
+        }
+    </style>
+</body>
+</html>

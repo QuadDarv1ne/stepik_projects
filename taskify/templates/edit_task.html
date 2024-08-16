@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование задачи - Taskify</title>
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .btn {
+            margin-top: 1rem;
+        }
+        .list-group-item {
+        border: none;
+        border-bottom: 1px solid #dee2e6;
+        background-color: #ffb30f;
+        color: #212529; /* Тёмный цвет текста для светлой темы */
+    }
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        .header-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .button-container .btn {
+            margin: 0; /* Убираем дополнительные отступы вокруг кнопок */
+        }
+        body.dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+        body.dark-mode .card {
+            background-color: #495057;
+            border-color: #343a40;
+        }
+        body.dark-mode .btn-primary, body.dark-mode .btn-info, body.dark-mode .btn-warning, body.dark-mode .btn-danger {
+            border-color: #f8f9fa;
+        }
+        body.dark-mode header {
+            background-color: #212529;
+        }
+        body.dark-mode .form-control, body.dark-mode .btn-light {
+            background-color: #495057;
+            color: #f8f9fa;
+        }
+        /* Обеспечиваем видимость текста в тёмной теме */
+        body.dark-mode .list-group-item {
+            background-color: #48a1fa;
+            color: #f8f9fa;
+        }
+        body.dark-mode .list-group-item:hover {
+            background-color: #8cc6fa;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <h1 class="header-title">Taskify</h1>
+        <button id="theme-toggle" class="btn btn-light">Темный режим</button>
+    </header>
+    <main class="container my-4">
+        <h2>Редактирование задачи</h2>
+        <form action="/tasks/{{ task._id }}" method="post">
+            <div class="form-group">
+                <label for="title">Название</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ task.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description" name="description" class="form-control">{{ task.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="completed">Завершено</label>
+                <input type="checkbox" id="completed" name="completed" {% if task.completed %}checked{% endif %}>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Обновить задачу</button>
+                <a href="/" class="btn btn-light">Назад к списку</a>
+            </div>
+        </form>
+    </main>
+    <!-- Подключение скриптов -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.textContent = document.body.classList.contains('dark-mode') ? 'Светлый режим' : 'Темный режим';
+        });
+    </script>
+</body>
+</html>
