@@ -1,5 +1,5 @@
 # Тестирование функции
-from FinManager.auth import get_password_hash, verify_password
+from FinManager.app.auth import get_password_hash, verify_password
 
 password = "1234567"
 hashed_password = get_password_hash(password)

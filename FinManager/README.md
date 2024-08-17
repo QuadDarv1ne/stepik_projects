@@ -51,13 +51,13 @@ python populate_data.py
 
 ### Запуск проекта:
 
-**cmd:** uvicorn main:app --reload
+**cmd:** uvicorn app.main:app --reload
 
 **Если не работает на 8000 порту, то можно запустить на 8080 или 7000:**
 
-**cmd:** python -m uvicorn main:app --port 8080
+**cmd:** python -m uvicorn app.main:app --port 8080
 
-**cmd:** python -m uvicorn main:app --port 7000
+**cmd:** python -m uvicorn app.main:app --port 7000
 
 ### Установка зависимостей:
 
