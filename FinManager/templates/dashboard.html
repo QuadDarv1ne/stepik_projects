@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать, {{ user.username }}!</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/transactions">Транзакции</a>
+            <a href="/budgets">Бюджеты</a>
+            <a href="/logout">Выход</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Ваши данные</h2>
+        <p>Email: {{ user.email }}</p>
+        <!-- Можно добавить другие элементы страницы -->
+    </main>
+    <footer>
+        <p>&copy; 2024 Ваше приложение</p>
+    </footer>
+</body>
+</html>

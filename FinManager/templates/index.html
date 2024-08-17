@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Добро пожаловать в FinManage</h1>
+    <p class="lead">Управляйте своими финансами легко. Отслеживайте свои расходы, устанавливайте бюджеты и достигайте финансовых целей.</p>
+    <hr class="my-4">
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/register" role="button">Начать</a>
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Отслеживайте свои транзакции</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Просматривайте и управляйте всеми своими финансовыми транзакциями в одном месте. Будьте в курсе своих расходов и доходов.</p>
+                    <a href="/transactions" class="btn btn-info">Просмотреть транзакции</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Управляйте своими бюджетами</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Устанавливайте и отслеживайте свои бюджеты, чтобы не выходить за финансовые пределы. Планируйте и экономьте больше.</p>
+                    <a href="/budgets" class="btn btn-success">Просмотреть бюджеты</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

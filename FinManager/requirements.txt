@@ -1,0 +1,8 @@
+fastapi[all]
+uvicorn
+motor                # асинхронный клиент для работы с MongoDB
+sqlalchemy
+pydantic             # для валидации данных
+jinja2               # templates для страниц сайта
+python-multipart
+aiofiles

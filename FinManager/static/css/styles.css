@@ -1,0 +1,51 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #343a40;
+}
+
+.navbar-brand, .nav-link, .navbar-text {
+    color: #ffffff !important;
+}
+
+.nav-link:hover {
+    color: #cccccc !important;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.jumbotron {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 2rem 1rem;
+    border-radius: 0.3rem;
+}
+
+.card {
+    border: 1px solid #dddddd;
+    border-radius: 0.3rem;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+}
+
+.btn {
+    border-radius: 0.3rem;
+}
