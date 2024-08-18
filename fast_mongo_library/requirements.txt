@@ -1,0 +1,10 @@
+fastapi[all]
+uvicorn
+sqlalchemy
+sqlite3
+motor
+pydantic
+pymongo
+python-dotenv
+pytest
+httpx
