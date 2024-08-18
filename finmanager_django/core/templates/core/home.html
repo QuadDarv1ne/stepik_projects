@@ -1,0 +1,12 @@
+<!-- core/templates/core/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Добро пожаловать в Мое приложение</h1>
+        <p class="lead">Изучите наши возможности и узнайте больше о нас.</p>
+        <a class="btn btn-primary" href="{% url 'contact' %}">Связаться с нами</a>
+    </div>
+{% endblock %}

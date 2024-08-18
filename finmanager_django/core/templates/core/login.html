@@ -1,0 +1,26 @@
+<!-- templates/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Вход</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
+        </form>
+        <div class="text-center mt-3">
+            <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+        </div>
+        <!-- Отображение сообщений об ошибках -->
+        {% if messages %}
+            <div class="mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!-- templates/register.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Регистрация</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+        </form>
+        <div class="text-center mt-3">
+            <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
+        </div>
+    </div>
+{% endblock %}
