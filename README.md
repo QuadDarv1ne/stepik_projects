@@ -2,17 +2,36 @@
 
 ### [1️⃣ Библиотека книг на Fast API](https://github.com/QuadDarv1ne/stepik_projects/tree/master/fast_api_library)
 
+![library](img/library/library.png)
+![osnovnoe_window](img/library/osnovnoe_window.png)
+
 ### [2️⃣ Медиа-платформа на Fast API](https://github.com/QuadDarv1ne/stepik_projects/tree/master/fast_api_media_platform)
+
+![media_platform](img/media_platform/media_platform.png)
+![yagoda_malinka](img/media_platform/yagoda_malinka.png)
+![smah_molitva](img/media_platform/smah_molitva.png)
+![orangevie_sny](img/media_platform/orangevie_sny.png)
 
 ### [3️⃣ Taskify — веб-приложение для управления задачами](https://github.com/QuadDarv1ne/stepik_projects/tree/master/taskify)
 
+![white_taskify](img/taskify/white_taskify.png)
+![black_taskify](img/taskify/black_taskify.png)
+
+![add_task](img/taskify/add_task.png)
+![edit_task](img/taskify/edit_task.png)
+![add_comments](img/taskify/add_comments.png)
+
 ### [4️⃣ в разработке](в разработке)
+
 
 ### [5️⃣ в разработке](в разработке)
 
+
 ### [6️⃣ в разработке](в разработке)
 
+
 ### [7️⃣ в разработке](в разработке)
+
 
 ![img.png](img/stepik.png)
 Погружение в программирование с Python становится проще и увлекательнее благодаря курсам на Stepik.
