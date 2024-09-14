@@ -1,5 +1,7 @@
 ## Итоговые проекты курсов на платформе Stepik
 
+![maestro7it.jpg](img/maestro7it.jpg)
+
 ### [1️⃣ Библиотека книг на Fast API](https://github.com/QuadDarv1ne/stepik_projects/tree/master/fast_api_library)
 
 ![library](img/library/library.png)
@@ -101,6 +103,7 @@
 ![DupleyMI.jpg](img/DupleyMI.jpg)
 
 ### Обо мне:
+
 💼 **Автор курсов:** Дуплей Максим Игоревич
 
 📲 **Telegram:** @QuadD4rv1n7
