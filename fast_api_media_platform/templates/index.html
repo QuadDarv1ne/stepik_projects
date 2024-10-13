@@ -10,6 +10,9 @@
     <meta property="og:description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
     <meta property="og:url" content="{{ request.url }}">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         #sidebar {
             width: 280px;
             height: 100vh;
@@ -17,9 +20,24 @@
             top: 0;
             left: 0;
             background-color: #167ade;
+            padding: 20px;
+            color: white;
         }
         #content {
             margin-left: 300px;
+            padding: 20px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .form-control {
+            max-width: 300px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -48,12 +66,12 @@
     <main id="content" class="container mt-4">
         <h1 class="mb-4">Добро пожаловать в Медиа Платформу</h1>
 
-        <form method="GET" action="/search">
-          <input type="text" name="genre" placeholder="Жанр">
-          <input type="text" name="category" placeholder="Категория">
-          <button type="submit">Поиск</button>
+        <!-- Форма поиска -->
+        <form method="GET" action="/search" class="d-flex flex-column flex-sm-row mb-4">
+            <input type="text" name="genre" class="form-control me-2" placeholder="Жанр">
+            <input type="text" name="category" class="form-control me-2" placeholder="Категория">
+            <button type="submit" class="btn btn-primary">Поиск</button>
         </form>
-        <br>
 
         <div class="row">
             {% for media_file in media_files %}
@@ -74,11 +92,11 @@
     </main>
 
     <!-- Sidebar -->
-    <nav id="sidebar" class="bg-light p-3">
+    <nav id="sidebar">
         <h4>Классификация</h4>
         <ul class="list-unstyled">
             <li>
-                <a href="#soundtrackSubmenu" data-bs-toggle="collapse" class="link-dark">Саундтреки</a>
+                <a href="#soundtrackSubmenu" data-bs-toggle="collapse" class="link-white">Саундтреки</a>
                 <ul class="collapse list-unstyled" id="soundtrackSubmenu">
                     <li><a href="#" class="link-dark">Фильмы</a></li>
                     <ul>
@@ -107,7 +125,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#albumsSubmenu" data-bs-toggle="collapse" class="link-dark">Музыкальные альбомы</a>
+                <a href="#albumsSubmenu" data-bs-toggle="collapse" class="link-white">Музыкальные альбомы</a>
                 <ul class="collapse list-unstyled" id="albumsSubmenu">
                     <li><a href="#" class="link-dark">Поп</a></li>
                     <li><a href="#" class="link-dark">Рок</a></li>
@@ -118,7 +136,7 @@
             </li>
 
             <li>
-                <a href="#audiobooksSubmenu" data-bs-toggle="collapse" class="link-dark">Аудиокниги</a>
+                <a href="#audiobooksSubmenu" data-bs-toggle="collapse" class="link-white">Аудиокниги</a>
                 <ul class="collapse list-unstyled" id="audiobooksSubmenu">
                     <li><a href="#" class="link-dark">Художественные</a></li>
                     <li><a href="#" class="link-dark">Научные</a></li>
@@ -129,7 +147,7 @@
             </li>
 
             <li>
-                <a href="#podcastsSubmenu" data-bs-toggle="collapse" class="link-dark">Подкасты</a>
+                <a href="#podcastsSubmenu" data-bs-toggle="collapse" class="link-white">Подкасты</a>
                 <ul class="collapse list-unstyled" id="podcastsSubmenu">
                     <li><a href="#" class="link-dark">Интервью</a></li>
                     <li><a href="#" class="link-dark">Новости</a></li>
