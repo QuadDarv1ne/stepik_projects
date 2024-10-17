@@ -13,6 +13,25 @@
     <meta property="og:image" content="{{ media_file.cover_image_path }}">
     <meta property="og:url" content="{{ request.url }}">
     <style>
+        body {
+                background-color: #f8f9fa; /* Светлый фон для контраста */
+                font-family: 'Arial', sans-serif; /* Современный шрифт */
+             }
+
+        .card {
+            border-radius: 8px; /* Скругленные углы карточек */
+            transition: transform 0.3s; /* Плавный эффект при наведении */
+        }
+
+        .card:hover {
+            transform: scale(1.007); /* Увеличение карточки при наведении */
+        }
+
+        .btn {
+            border-radius: 20px; /* Скругленные кнопки */
+            padding: 10px 20px; /* Увеличенный отступ для кнопок */
+        }
+
         .fade-in {
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
