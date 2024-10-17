@@ -37,6 +37,7 @@ def get_db():
     finally:
         db.close()
 
+
 # Middleware для кэширования статических файлов
 @app.middleware("http")
 async def add_cache_header(request, call_next):
@@ -46,6 +47,7 @@ async def add_cache_header(request, call_next):
         response.headers["Cache-Control"] = "public, max-age=600"
     return response
 
+
 @app.get("/")
 async def read_root(request: Request, db: Session = Depends(get_db)):
     try:
@@ -54,6 +56,7 @@ async def read_root(request: Request, db: Session = Depends(get_db)):
     except SQLAlchemyError as e:
         logger.error(f"Ошибка базы данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка базы данных")
+
 
 @app.get("/upload")
 async def upload_form(request: Request, db: Session = Depends(get_db)):
@@ -74,6 +77,9 @@ async def upload_file(
         cover_file: UploadFile = File(...),
         category_id: int = Form(...),
         genre_id: int = Form(...),
+        youtube_url: str = Form(None),   # Новое поле для YouTube
+        rutube_url: str = Form(None),    # Новое поле для Rutube
+        plvideo_url: str = Form(None),   # Новое поле для Plvideo
         db: Session = Depends(get_db)
 ):
     try:
@@ -107,7 +113,10 @@ async def upload_file(
             file_path=music_file_path,
             cover_image_path=cover_file_path,
             category_id=category_id,
-            genre_id=genre_id
+            genre_id=genre_id,
+            youtube_url=youtube_url,     # Передаем YouTube URL
+            rutube_url=rutube_url,       # Передаем Rutube URL
+            plvideo_url=plvideo_url      # Передаем Plvideo URL
         )
         return RedirectResponse("/", status_code=303)
     except SQLAlchemyError as e:
@@ -117,9 +126,11 @@ async def upload_file(
         logger.error(f"Ошибка загрузки файла: {e}")
         raise HTTPException(status_code=500, detail=f"Ошибка загрузки файла: {e}")
 
+
 @app.get("/create-category")
 async def create_category_form(request: Request):
     return templates.TemplateResponse("create_category.html", {"request": request})
+
 
 @app.post("/create-category")
 async def create_category(name: str = Form(...), db: Session = Depends(get_db)):
@@ -130,9 +141,11 @@ async def create_category(name: str = Form(...), db: Session = Depends(get_db)):
         logger.error(f"Ошибка базы данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка базы данных")
 
+
 @app.get("/create-genre")
 async def create_genre_form(request: Request):
     return templates.TemplateResponse("create_genre.html", {"request": request})
+
 
 @app.post("/create-genre")
 async def create_genre(name: str = Form(...), db: Session = Depends(get_db)):
@@ -142,6 +155,7 @@ async def create_genre(name: str = Form(...), db: Session = Depends(get_db)):
     except SQLAlchemyError as e:
         logger.error(f"Ошибка базы данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка базы данных")
+
 
 @app.get("/media/{media_id}")
 async def read_media(request: Request, media_id: int, db: Session = Depends(get_db)):
@@ -158,6 +172,7 @@ async def read_media(request: Request, media_id: int, db: Session = Depends(get_
         logger.error(f"Ошибка: {e}")
         raise HTTPException(status_code=500, detail="Ошибка сервера")
 
+
 @app.on_event("shutdown")
 def cleanup_temp_files():
     temp_dir = '/path/to/temp/dir'
@@ -168,6 +183,56 @@ def cleanup_temp_files():
                 os.unlink(file_path)
         except Exception as e:
             print(f"Ошибка при удалении файла: {e}")
+
+
+@app.get("/edit-media/{media_id}")
+async def edit_media_form(request: Request, media_id: int, db: Session = Depends(get_db)):
+    try:
+        media_file = crud.get_media_file_by_id(db, media_id)  # Получите медиа файл по ID
+        if media_file is None:
+            raise HTTPException(status_code=404, detail="Медиа файл не найден")
+        categories = crud.get_categories(db)
+        genres = crud.get_genres(db)
+        return templates.TemplateResponse("edit_media.html", {"request": request, "media_file": media_file, "categories": categories, "genres": genres})
+    except SQLAlchemyError as e:
+        logger.error(f"Ошибка базы данных: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка базы данных")
+
+
+@app.post("/edit-media/{media_id}")
+async def update_media(
+        media_id: int,
+        name_music: str = Form(...),
+        category_id: int = Form(...),
+        genre_id: int = Form(...),
+        youtube_url: str = Form(None), 
+        rutube_url: str = Form(None),   
+        plvideo_url: str = Form(None),
+        db: Session = Depends(get_db)
+):
+    try:
+        media_file = crud.get_media_file_by_id(db, media_id)
+        if media_file is None:
+            raise HTTPException(status_code=404, detail="Медиа файл не найден")
+
+        # Обновление данных в базе данных
+        crud.update_media_file(
+            db=db,
+            media_id=media_id,
+            name_music=name_music,
+            category_id=category_id,
+            genre_id=genre_id,
+            youtube_url=youtube_url,
+            rutube_url=rutube_url,
+            plvideo_url=plvideo_url
+        )
+        return RedirectResponse(f"/media/{media_id}", status_code=303)  # Перенаправление на страницу медиа
+    except SQLAlchemyError as e:
+        logger.error(f"Ошибка базы данных: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка базы данных")
+    except Exception as e:
+        logger.error(f"Ошибка обновления данных: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка обновления данных")
 
 '''
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB

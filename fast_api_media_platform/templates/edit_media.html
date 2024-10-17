@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Редактировать информацию о музыке</h1>
+<form method="post">
+    <div class="mb-3">
+        <label for="name_music" class="form-label">Название музыки</label>
+        <input type="text" class="form-control" id="name_music" name="name_music" value="{{ media_file.name_music }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="category_id" class="form-label">Категория</label>
+        <select class="form-select" id="category_id" name="category_id" required>
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id == media_file.category_id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="genre_id" class="form-label">Жанр</label>
+        <select class="form-select" id="genre_id" name="genre_id" required>
+            {% for genre in genres %}
+            <option value="{{ genre.id }}" {% if genre.id == media_file.genre_id %}selected{% endif %}>{{ genre.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="youtube_url" class="form-label">YouTube URL</label>
+        <input type="url" class="form-control" id="youtube_url" name="youtube_url" value="{{ media_file.youtube_url }}">
+    </div>
+    <div class="mb-3">
+        <label for="rutube_url" class="form-label">Rutube URL</label>
+        <input type="url" class="form-control" id="rutube_url" name="rutube_url" value="{{ media_file.rutube_url }}">
+    </div>
+    <div class="mb-3">
+        <label for="plvideo_url" class="form-label">Plvideo URL</label>
+        <input type="url" class="form-control" id="plvideo_url" name="plvideo_url" value="{{ media_file.plvideo_url }}">
+    </div>
+    <button type="submit" class="btn btn-success">Сохранить изменения</button>
+    <a href="/" class="btn btn-secondary">Отменить</a>
+</form>
+{% endblock %}

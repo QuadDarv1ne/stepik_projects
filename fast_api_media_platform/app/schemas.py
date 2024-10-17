@@ -32,6 +32,9 @@ class MediaFileBase(BaseModel):
     cover_image_path: str
     category_id: int
     genre_id: int
+    youtube_url: Optional[str] = None
+    rutube_url: Optional[str] = None
+    plvideo_url: Optional[str] = None
 
 class MediaFileCreate(MediaFileBase):
     pass

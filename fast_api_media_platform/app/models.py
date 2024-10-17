@@ -13,6 +13,11 @@ class MediaFile(Base):
     category_id = Column(Integer, ForeignKey("categories.id"))
     genre_id = Column(Integer, ForeignKey("genres.id"))
 
+    # Новые поля для различных видео URL
+    youtube_url = Column(String(255), nullable=True)
+    rutube_url = Column(String(255), nullable=True)
+    plvideo_url = Column(String(255), nullable=True)
+    
     category = relationship("Category", back_populates="media_files")
     genre = relationship("Genre", back_populates="media_files")
 

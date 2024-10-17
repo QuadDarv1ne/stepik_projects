@@ -12,34 +12,86 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f8f9fa;
         }
+        
         #sidebar {
             width: 280px;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #167ade;
+            background-color: #fda049;
             padding: 20px;
             color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
         }
+        
         #content {
             margin-left: 300px;
             padding: 20px;
+            transition: margin-left 0.3s ease;
         }
+        
         .navbar-brand {
             font-weight: bold;
             color: #fff;
+            text-decoration: none;
         }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
         .card img {
             height: 200px;
             object-fit: cover;
+            width: 100%; /* адаптивное изображение */
         }
+        
         .form-control {
-            max-width: 300px;
+            max-width: 100%; /* позволяет занимать всю ширину контейнера */
             margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        /* Медиазапросы для адаптации под мобильные устройства */
+        @media (max-width: 768px) {
+            #sidebar {
+                width: 100%; /* Sidebar на весь экран */
+                height: auto; /* Высота зависит от контента */
+                position: relative; /* Изменяем позиционирование */
+                padding: 10px; /* Уменьшаем отступы */
+                box-shadow: none; /* Убираем тень для мобильных */
+            }
+            
+            #content {
+                margin-left: 0; /* Убираем отступ */
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-control {
+                max-width: 100%; /* Формы занимают всю ширину на маленьких экранах */
+                padding: 8px; /* Уменьшаем отступы для мобильных устройств */
+            }
+            
+            .card img {
+                height: 150px; /* Уменьшаем высоту изображений на маленьких экранах */
+            }
         }
     </style>
+    
 </head>
 <body>
     <!-- Навигационная панель -->
@@ -84,6 +136,7 @@
                             <p class="card-text">Категория: {{ media_file.category.name }}</p>
                             <p class="card-text">Жанр: {{ media_file.genre.name }}</p>
                             <a href="/media/{{ media_file.id }}" class="btn btn-primary">Подробнее</a>
+                            <a href="/edit-media/{{ media_file.id }}" class="btn btn-warning">Изменить</a>
                         </div>
                     </div>
                 </div>
@@ -98,61 +151,61 @@
             <li>
                 <a href="#soundtrackSubmenu" data-bs-toggle="collapse" class="link-white">Саундтреки</a>
                 <ul class="collapse list-unstyled" id="soundtrackSubmenu">
-                    <li><a href="#" class="link-dark">Фильмы</a></li>
+                    <li><a href="#" class="link-white">Фильмы</a></li>
                     <ul>
-                        <li><a href="#" class="link-dark">Триллеры</a></li>
-                        <li><a href="#" class="link-dark">Драмы</a></li>
-                        <li><a href="#" class="link-dark">Комедии</a></li>
-                        <li><a href="#" class="link-dark">Фантастика</a></li>
-                        <li><a href="#" class="link-dark">Боевики</a></li>
-                        <li><a href="#" class="link-dark">Ужасы</a></li>
-                        <li><a href="#" class="link-dark">Романтика</a></li>
+                        <li><a href="#" class="link-white">Триллеры</a></li>
+                        <li><a href="#" class="link-white">Драмы</a></li>
+                        <li><a href="#" class="link-white">Комедии</a></li>
+                        <li><a href="#" class="link-white">Фантастика</a></li>
+                        <li><a href="#" class="link-white">Боевики</a></li>
+                        <li><a href="#" class="link-white">Ужасы</a></li>
+                        <li><a href="#" class="link-white">Романтика</a></li>
                     </ul>
-                    <li><a href="#" class="link-dark">Мультфильмы</a></li>
+                    <li><a href="#" class="link-white">Мультфильмы</a></li>
                     <ul>
-                        <li><a href="#" class="link-dark">Приключения</a></li>
-                        <li><a href="#" class="link-dark">Семейные</a></li>
-                        <li><a href="#" class="link-dark">Фэнтези</a></li>
+                        <li><a href="#" class="link-white">Приключения</a></li>
+                        <li><a href="#" class="link-white">Семейные</a></li>
+                        <li><a href="#" class="link-white">Фэнтези</a></li>
                     </ul>
-                    <li><a href="#" class="link-dark">Игры</a></li>
+                    <li><a href="#" class="link-white">Игры</a></li>
                     <ul>
-                        <li><a href="#" class="link-dark">Ролевые</a></li>
-                        <li><a href="#" class="link-dark">Шутеры</a></li>
-                        <li><a href="#" class="link-dark">Приключенческие</a></li>
-                        <li><a href="#" class="link-dark">Стратегии</a></li>
-                        <li><a href="#" class="link-dark">Симуляторы</a></li>
+                        <li><a href="#" class="link-white">Ролевые</a></li>
+                        <li><a href="#" class="link-white">Шутеры</a></li>
+                        <li><a href="#" class="link-white">Приключенческие</a></li>
+                        <li><a href="#" class="link-white">Стратегии</a></li>
+                        <li><a href="#" class="link-white">Симуляторы</a></li>
                     </ul>
                 </ul>
             </li>
             <li>
                 <a href="#albumsSubmenu" data-bs-toggle="collapse" class="link-white">Музыкальные альбомы</a>
                 <ul class="collapse list-unstyled" id="albumsSubmenu">
-                    <li><a href="#" class="link-dark">Поп</a></li>
-                    <li><a href="#" class="link-dark">Рок</a></li>
-                    <li><a href="#" class="link-dark">Классическая музыка</a></li>
-                    <li><a href="#" class="link-dark">Электронная музыка</a></li>
-                    <li><a href="#" class="link-dark">Хип-хоп</a></li>
+                    <li><a href="#" class="link-white">Поп</a></li>
+                    <li><a href="#" class="link-white">Рок</a></li>
+                    <li><a href="#" class="link-white">Классическая музыка</a></li>
+                    <li><a href="#" class="link-white">Электронная музыка</a></li>
+                    <li><a href="#" class="link-white">Хип-хоп</a></li>
                 </ul>
             </li>
 
             <li>
                 <a href="#audiobooksSubmenu" data-bs-toggle="collapse" class="link-white">Аудиокниги</a>
                 <ul class="collapse list-unstyled" id="audiobooksSubmenu">
-                    <li><a href="#" class="link-dark">Художественные</a></li>
-                    <li><a href="#" class="link-dark">Научные</a></li>
-                    <li><a href="#" class="link-dark">Биографии</a></li>
-                    <li><a href="#" class="link-dark">Фантастика</a></li>
-                    <li><a href="#" class="link-dark">История</a></li>
+                    <li><a href="#" class="link-white">Художественные</a></li>
+                    <li><a href="#" class="link-white">Научные</a></li>
+                    <li><a href="#" class="link-white">Биографии</a></li>
+                    <li><a href="#" class="link-white">Фантастика</a></li>
+                    <li><a href="#" class="link-white">История</a></li>
                 </ul>
             </li>
 
             <li>
                 <a href="#podcastsSubmenu" data-bs-toggle="collapse" class="link-white">Подкасты</a>
                 <ul class="collapse list-unstyled" id="podcastsSubmenu">
-                    <li><a href="#" class="link-dark">Интервью</a></li>
-                    <li><a href="#" class="link-dark">Новости</a></li>
-                    <li><a href="#" class="link-dark">Технологии</a></li>
-                    <li><a href="#" class="link-dark">Наука</a></li>
+                    <li><a href="#" class="link-white">Интервью</a></li>
+                    <li><a href="#" class="link-white">Новости</a></li>
+                    <li><a href="#" class="link-white">Технологии</a></li>
+                    <li><a href="#" class="link-white">Наука</a></li>
                 </ul>
             </li>
         </ul>
