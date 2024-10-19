@@ -1,6 +1,7 @@
 import logging
 from fastapi import FastAPI, Depends, HTTPException, Request, Form, File, UploadFile
 from fastapi.responses import RedirectResponse
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -14,12 +15,16 @@ from app.database import engine, SessionLocal
 from werkzeug.utils import secure_filename
 import os
 
+from app.routers import auth
+
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Инициализация FastAPI
 app = FastAPI()
+
+app.include_router(auth.router)
 
 # Настройка обслуживания статических файлов
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -238,3 +243,25 @@ async def update_media(
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB
 allowed_extensions = {'mp3', 'wav', 'jpg', 'png'}
 '''
+
+@app.get("/register", response_class=HTMLResponse)
+async def register_form(request: Request):
+    return templates.TemplateResponse("auth/register.html", {"request": request})
+
+@app.post("/register", response_class=HTMLResponse)
+async def register(username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    if crud.get_user(db, username):
+        raise HTTPException(status_code=400, detail="Пользователь уже существует")
+    user = crud.create_user(db=db, username=username, password=password)
+    return templates.TemplateResponse("auth/login.html", {"request": Request, "message": "Регистрация прошла успешно, теперь вы можете войти."})
+
+@app.get("/login", response_class=HTMLResponse)
+async def login_form(request: Request):
+    return templates.TemplateResponse("auth/login.html", {"request": request})
+
+@app.post("/login")
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = crud.get_user(db, form_data.username)
+    if not user or not pwd_context.verify(form_data.password, user.password):
+        raise HTTPException(status_code=400, detail="Неправильное имя пользователя или пароль")
+    return {"access_token": user.username, "token_type": "bearer"}

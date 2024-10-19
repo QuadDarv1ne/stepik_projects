@@ -72,3 +72,15 @@ def update_media_file(db: Session, media_id: int, name_music: str, category_id: 
     db.commit()
     db.refresh(media_file)
     return media_file
+
+def get_user_by_username(db: Session, username: str):
+    """Получить пользователя по имени"""
+    return db.query(models.User).filter(models.User.username == username).first()
+
+def create_user(db: Session, username: str, hashed_password: str):
+    """Создать нового пользователя"""
+    db_user = models.User(username=username, hashed_password=hashed_password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
