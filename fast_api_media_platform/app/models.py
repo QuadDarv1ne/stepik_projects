@@ -16,7 +16,7 @@ class MediaFile(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name_music = Column(String(100), index=True)
-    filename = Column(String(100), index=True)  # Изменено с file_name
+    filename = Column(String(100), index=True)
     file_path = Column(String)
     cover_image_path = Column(String)
     category_id = Column(Integer, ForeignKey("categories.id"))
@@ -24,8 +24,6 @@ class MediaFile(Base):
     youtube_url = Column(String(255), nullable=True)
     rutube_url = Column(String(255), nullable=True)
     plvideo_url = Column(String(255), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     category = relationship("Category", back_populates="media_files")
     genre = relationship("Genre", back_populates="media_files")
@@ -67,7 +65,7 @@ class Music(Base):
     duration = Column(Integer)  # Продолжительность в секундах
     release_date = Column(DateTime)  # Дата выхода
 
-    favorites = relationship("Favorite", back_populates="music")  # Добавлено для обратного отношения
+    favorites = relationship("Favorite", back_populates="music")
 
 class Favorite(Base):
     __tablename__ = "favorites"
@@ -77,4 +75,4 @@ class Favorite(Base):
     music_id = Column(Integer, ForeignKey("music.id"))
 
     owner = relationship("User", back_populates="favorites")
-    music = relationship("Music", back_populates="favorites")  # Добавлено для обратного отношения
+    music = relationship("Music", back_populates="favorites")
