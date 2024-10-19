@@ -7,8 +7,8 @@ conf = ConnectionConfig(
     MAIL_FROM="your_email@example.com",
     MAIL_PORT=587,
     MAIL_SERVER="smtp.example.com",
-    MAIL_TLS=True,
-    MAIL_SSL=False,
+    MAIL_STARTTLS=True,  # Замените MAIL_TLS на MAIL_STARTTLS
+    MAIL_SSL_TLS=False,   # Замените MAIL_SSL на MAIL_SSL_TLS
     USE_CREDENTIALS=True,
 )
 
