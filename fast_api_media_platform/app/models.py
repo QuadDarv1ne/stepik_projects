@@ -36,3 +36,31 @@ class Genre(Base):
     name = Column(String, index=True)
 
     media_files = relationship("MediaFile", back_populates="genre")
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)
+    profile_pic = Column(String, default='default.jpg')  # Путь к фотографии профиля
+
+    favorites = relationship("Favorite", back_populates="owner")
+
+class Music(Base):
+    __tablename__ = "music"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    artist = Column(String)
+
+class Favorite(Base):
+    __tablename__ = "favorites"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    music_id = Column(Integer, ForeignKey("music.id"))
+
+    owner = relationship("User", back_populates="favorites")

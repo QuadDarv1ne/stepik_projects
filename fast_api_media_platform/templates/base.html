@@ -1,21 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Медиа Платформа{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <!-- Добавляем стили для тем -->
+    <style>
+        body {
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            font-family: 'Arial', sans-serif;
+        }
 
+        /* Светлая тема (по умолчанию) */
+        body.light-theme {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .light-theme .navbar {
+            background-color: #e9ecef;
+        }
+
+        .light-theme .card {
+            background-color: #ffffff;
+            color: #212529;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Тёмная тема */
+        body.dark-theme {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+
+        .dark-theme .navbar {
+            background-color: #343a40;
+        }
+
+        .dark-theme .card {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            border: 1px solid #444;
+        }
+
+        /* Стиль для кнопки переключения темы */
+        .theme-switcher-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .theme-switcher-btn .bi {
+            font-size: 1.25rem;
+        }
+
+        /* Hover эффекты */
+        .theme-switcher-btn:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 576px) {
+            .theme-switcher-btn {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.25rem 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand">Медиа Платформа</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Медиа Платформа</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,13 +107,56 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         {% block content %}
         {% endblock %}
     </div>
 
+    <!-- Кнопка для переключения темы -->
+    <button id="theme-switcher" class="btn btn-outline-primary theme-switcher-btn" onclick="toggleTheme()">
+        <i id="theme-icon" class="bi bi-moon"></i> <span id="theme-text">Тёмная тема</span>
+    </button>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts.js"></script>
+
+    <!-- Скрипт для переключения тем -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.body.classList.add(`${currentTheme}-theme`);
+
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+
+            if (currentTheme === 'dark') {
+                themeText.textContent = 'Светлая тема';
+                themeIcon.classList.replace('bi-moon', 'bi-sun');
+            } else {
+                themeText.textContent = 'Тёмная тема';
+                themeIcon.classList.replace('bi-sun', 'bi-moon');
+            }
+        });
+
+        function toggleTheme() {
+            const bodyClassList = document.body.classList;
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+
+            if (bodyClassList.contains('light-theme')) {
+                bodyClassList.replace('light-theme', 'dark-theme');
+                localStorage.setItem('theme', 'dark');
+                themeText.textContent = 'Светлая тема';
+                themeIcon.classList.replace('bi-moon', 'bi-sun');
+            } else {
+                bodyClassList.replace('dark-theme', 'light-theme');
+                localStorage.setItem('theme', 'light');
+                themeText.textContent = 'Тёмная тема';
+                themeIcon.classList.replace('bi-sun', 'bi-moon');
+            }
+        }
+    </script>
 </body>
 </html>

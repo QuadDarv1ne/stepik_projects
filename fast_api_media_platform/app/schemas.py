@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, EmailStr
+from typing import List, Optional
 
 class CategoryBase(BaseModel):
     name: str
@@ -41,6 +41,41 @@ class MediaFileCreate(MediaFileBase):
 
 class MediaFile(MediaFileBase):
     id: int
+
+    class Config:
+        from_attributes = True
+
+
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+class User(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    profile_pic: str
+
+    class Config:
+        from_attributes = True
+
+class Music(BaseModel):
+    id: int
+    title: str
+    artist: str
+
+    class Config:
+        from_attributes = True
+
+class FavoriteCreate(BaseModel):
+    user_id: int
+    music_id: int
+
+class Favorite(BaseModel):
+    id: int
+    user_id: int
+    music_id: int
 
     class Config:
         from_attributes = True

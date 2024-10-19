@@ -4,4 +4,6 @@ sqlalchemy
 pydantic
 jinja2
 python-multipart
-
+flask_wtf
+flask_login
+flask_sqlalchemy

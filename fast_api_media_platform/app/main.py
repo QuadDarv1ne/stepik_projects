@@ -14,6 +14,15 @@ from app.database import engine, SessionLocal
 from werkzeug.utils import secure_filename
 import os
 
+
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
+from passlib.context import CryptContext
+from models import User, Favorite
+from schemas import UserCreate, User
+from database import get_db  # Функция для получения подключения к БД
+
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -36,6 +45,31 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+# Для работы с паролями
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# OAuth2 для авторизации
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# Регистрация пользователя
+@app.post("/register", response_model=User)
+def register(user: UserCreate, db: Session = Depends(get_db)):
+    hashed_password = pwd_context.hash(user.password)
+    db_user = User(username=user.username, email=user.email, password=hashed_password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+# Вход пользователя
+@app.post("/token")
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == form_data.username).first()
+    if not user or not pwd_context.verify(form_data.password, user.password):
+        raise HTTPException(status_code=400, detail="Неправильный email или пароль")
+    return {"access_token": user.username, "token_type": "bearer"}
 
 
 # Middleware для кэширования статических файлов
@@ -238,3 +272,18 @@ async def update_media(
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB
 allowed_extensions = {'mp3', 'wav', 'jpg', 'png'}
 '''
+
+@app.post("/favorites/", response_model=Favorite)
+def add_favorite(favorite: FavoriteCreate, db: Session = Depends(get_db)):
+    db_favorite = Favorite(user_id=favorite.user_id, music_id=favorite.music_id)
+    db.add(db_favorite)
+    db.commit()
+    db.refresh(db_favorite)
+    return db_favorite
+
+@app.delete("/favorites/{favorite_id}")
+def delete_favorite(favorite_id: int, db: Session = Depends(get_db)):
+    favorite = db.query(Favorite).filter(Favorite.id == favorite_id).first()
+    db.delete(favorite)
+    db.commit()
+    return {"detail": "Избранное удалено"}
