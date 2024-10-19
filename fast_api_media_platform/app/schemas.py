@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import Optional, List
 
+# Схемы для категорий
 class CategoryBase(BaseModel):
     name: str
 
@@ -13,6 +14,7 @@ class Category(CategoryBase):
     class Config:
         from_attributes = True
 
+# Схемы для жанров
 class GenreBase(BaseModel):
     name: str
 
@@ -25,6 +27,7 @@ class Genre(GenreBase):
     class Config:
         from_attributes = True
 
+# Схемы для медиафайлов
 class MediaFileBase(BaseModel):
     name_music: str
     file_name: str
@@ -45,21 +48,26 @@ class MediaFile(MediaFileBase):
     class Config:
         from_attributes = True
 
-
-class UserCreate(BaseModel):
+# Схемы для пользователей
+class UserBase(BaseModel):
     username: str
     email: EmailStr
+
+class UserCreate(UserBase):
     password: str
 
-class User(BaseModel):
+class User(UserBase):
     id: int
-    username: str
-    email: EmailStr
-    profile_pic: str
+    profile_pic: Optional[str] = None
 
     class Config:
         from_attributes = True
 
+class UserOut(User):
+    # Можно расширить или изменить User для вывода, если нужно
+    pass
+
+# Схемы для музыки
 class Music(BaseModel):
     id: int
     title: str
@@ -68,11 +76,11 @@ class Music(BaseModel):
     class Config:
         from_attributes = True
 
+# Схемы для избранного
 class FavoriteCreate(BaseModel):
-    user_id: int
     music_id: int
 
-class Favorite(BaseModel):
+class FavoriteOut(BaseModel):
     id: int
     user_id: int
     music_id: int

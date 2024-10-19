@@ -19,9 +19,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
-from models import User, Favorite
-from schemas import UserCreate, User
-from database import get_db  # Функция для получения подключения к БД
+from app.models import User, Favorite
+from app.schemas import FavoriteCreate, UserCreate, User
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
