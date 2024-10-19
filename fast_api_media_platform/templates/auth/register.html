@@ -5,27 +5,26 @@
 <div class="card mt-4">
     <div class="card-body">
         <h2 class="card-title">Регистрация</h2>
-        <form method="POST" enctype="multipart/form-data">  <!-- Добавлен enctype для загрузки файлов -->
-            {{ form.hidden_tag() }}
+        <form method="POST" action="/register" enctype="multipart/form-data"> <!-- Добавлено действие для формы -->
             <div class="form-group">
-                {{ form.username.label(class="form-label") }}
-                {{ form.username(class="form-control") }}
+                <label for="username" class="form-label">Имя пользователя</label>
+                <input type="text" id="username" name="username" class="form-control" required>
             </div>
             <div class="form-group">
-                {{ form.email.label(class="form-label") }}
-                {{ form.email(class="form-control") }}
+                <label for="email" class="form-label">Электронная почта</label>
+                <input type="email" id="email" name="email" class="form-control" required>
             </div>
             <div class="form-group">
-                {{ form.password.label(class="form-label") }}
-                {{ form.password(class="form-control") }}
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
             <div class="form-group">
-                {{ form.confirm_password.label(class="form-label") }}
-                {{ form.confirm_password(class="form-control") }}
+                <label for="confirm_password" class="form-label">Подтверждение пароля</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Фото профиля</label>
-                <input type="file" name="profile_picture" class="form-control" accept="image/*"> <!-- Поле для загрузки фото -->
+                <label for="profile_picture" class="form-label">Фото профиля</label>
+                <input type="file" id="profile_picture" name="profile_picture" class="form-control" accept="image/*">
             </div>
             <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </form>
