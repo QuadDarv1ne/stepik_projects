@@ -1,21 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="contact">
-    <h1>Контакты</h1>
-    <p>Мы всегда открыты для общения! Если у вас есть вопросы, комментарии или предложения, пожалуйста, заполните форму ниже.</p>
+<section class="contact container mt-5">
+    <h1 class="text-center mb-4">Контакты</h1>
+    <p class="text-center mb-4">Мы всегда открыты для общения :D Если у вас есть вопросы, комментарии или предложения, пожалуйста, заполните форму ниже.</p>
 
-    <form action="/send-message" method="post">
-        <label for="name">Имя:</label>
-        <input type="text" id="name" name="name" required>
+    <form action="/send-message" method="post" class="p-4 border rounded shadow-sm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Имя:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
 
-        <label for="message">Сообщение:</label>
-        <textarea id="message" name="message" required></textarea>
+        <div class="mb-3">
+            <label for="message" class="form-label">Сообщение:</label>
+            <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+        </div>
 
-        <button type="submit">Отправить сообщение</button>
+        <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+        <a href="/" class="btn btn-secondary me-2">Назад</a>
     </form>
 </section>
 {% endblock %}

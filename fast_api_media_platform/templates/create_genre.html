@@ -41,10 +41,17 @@
                 <label for="name" class="form-label">Название жанра</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
-            <button type="submit" class="btn btn-primary">Создать</button>
         </form>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary">Создать</button>
+            <a href="/" class="btn btn-secondary me-2">Назад</a>
+        </div>
     </div>
 
+    <!-- Подключение футера -->
+    {% include 'layouts/footer.html' %}
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
