@@ -1,0 +1,101 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h6 {
+    font-size: 1.1rem;
+    color: #6c757d; /* Серый цвет для меток */
+}
+
+.card-body h5 {
+    font-weight: bold;
+    color: #343a40; /* Темно-серый цвет для заголовков */
+    margin-bottom: 10px; /* Отступ между заголовками и текстом */
+}
+
+.card-body .info {
+    margin-bottom: 15px; /* Отступ для каждой строки информации */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e9ecef; /* Светло-серый фон для информации */
+}
+
+.card-body .info i {
+    margin-right: 5px; /* Отступ между иконкой и текстом */
+    color: #007bff; /* Цвет иконок */
+}
+
+.audio-player {
+    margin-top: 20px;
+}
+
+.btn {
+    border-radius: 25px; /* Закругленные углы кнопок */
+    padding: 10px 30px; /* Отступы внутри кнопок */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+/* Эффект появления */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.fade-in.show {
+    opacity: 1;
+}
+
+.video-container {
+    margin-left: 20px;
+}
+
+/* Стили для видеоплеера */
+#video-player-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#video-iframe {
+    width: 100%;
+    height: 350px;
+}
+
+.navbar {
+    margin-bottom: 40px;
+}

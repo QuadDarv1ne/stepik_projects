@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
     <meta property="og:title" content="Главная страница - Медиа Платформа">
     <meta property="og:description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
@@ -17,7 +17,7 @@
             color: #333;
             background-color: #f8f9fa;
         }
-        
+
         #sidebar {
             width: 280px;
             height: 100vh;
@@ -30,33 +30,54 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             transition: width 0.3s ease;
         }
-        
+
         #content {
             margin-left: 300px;
             padding: 20px;
             transition: margin-left 0.3s ease;
         }
-        
+
         .navbar-brand {
             font-weight: bold;
             color: #fff;
             text-decoration: none;
         }
-        
+
         .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: none; /* Убираем границу */
+            border-radius: 15px; /* Углы */
+            overflow: hidden; /* Обрезаем изображения */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень */
             margin-bottom: 20px;
+            transition: transform 0.3s; /* Анимация при наведении */
         }
-        
+
+        .card:hover {
+            transform: scale(1.05); /* Увеличение при наведении */
+        }
+
         .card img {
             height: 200px;
             object-fit: cover;
             width: 100%; /* адаптивное изображение */
+            border-bottom: 5px solid #fda049; /* Нижняя граница изображения */
         }
-        
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .btn {
+            margin: 5px 0;
+        }
+
         .form-control {
             max-width: 100%; /* позволяет занимать всю ширину контейнера */
             margin-bottom: 10px;
@@ -64,7 +85,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        
+
         /* Медиазапросы для адаптации под мобильные устройства */
         @media (max-width: 768px) {
             #sidebar {
@@ -74,24 +95,49 @@
                 padding: 10px; /* Уменьшаем отступы */
                 box-shadow: none; /* Убираем тень для мобильных */
             }
-            
+
             #content {
                 margin-left: 0; /* Убираем отступ */
             }
         }
-        
+
         @media (max-width: 576px) {
             .form-control {
                 max-width: 100%; /* Формы занимают всю ширину на маленьких экранах */
                 padding: 8px; /* Уменьшаем отступы для мобильных устройств */
             }
-            
+
             .card img {
                 height: 150px; /* Уменьшаем высоту изображений на маленьких экранах */
             }
         }
+
+        /* Стили для кнопок прокрутки */
+        #scrollButtons {
+            position: fixed;
+            right: 20px; /* Отступ от правого края */
+            top: 40%; /* Отступ от верхнего края */
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Отступ между кнопками */
+        }
+
+        #scrollUp, #scrollDown {
+            width: 50px; /* Ширина кнопок */
+            height: 50px; /* Высота кнопок */
+            border-radius: 50%; /* Круглая форма кнопок */
+            border: none; /* Убираем границу */
+            background-color: #fda049; /* Цвет фона */
+            color: white; /* Цвет текста */
+            font-size: 18px; /* Размер шрифта */
+            cursor: pointer; /* Указатель при наведении */
+            transition: background-color 0.3s; /* Анимация при наведении */
+        }
+
+        #scrollUp:hover, #scrollDown:hover {
+            background-color: #e69c3c; /* Цвет при наведении */
+        }
     </style>
-    
 </head>
 <body>
     <!-- Навигационная панель -->
@@ -132,17 +178,19 @@
                         <img src="{{ media_file.cover_image_path }}" class="card-img-top" alt="{{ media_file.file_name }}" loading="lazy">
                         <div class="card-body">
                             <h5 class="card-title">{{ media_file.name_music }}</h5>
-                            <p class="card-text">Описание: {{ media_file.description }}</p>
-                            <p class="card-text">Файл: {{ media_file.file_name }}</p>
-                            <p class="card-text">Категория: {{ media_file.category.name }}</p>
-                            <p class="card-text">Жанр: {{ media_file.genre.name }}</p>
-                            <a href="/media/{{ media_file.id }}" class="btn btn-primary">Подробнее</a>
-                            <a href="/edit-media/{{ media_file.id }}" class="btn btn-warning">Изменить</a>
+                            <p class="card-text"><strong>Описание:</strong> {{ media_file.description[:300] }}{% if media_file.description|length > 300 %}...{% endif %}</p>
+                            <p class="card-text"><strong>Файл:</strong> {{ media_file.file_name }}</p>
+                            <p class="card-text"><strong>Категория:</strong> {{ media_file.category.name }}</p>
+                            <p class="card-text"><strong>Жанр:</strong> {{ media_file.genre.name }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="/media/{{ media_file.id }}" class="btn btn-primary">Подробнее</a>
+                                <a href="/edit-media/{{ media_file.id }}" class="btn btn-warning">Изменить</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-        </div>
+        </div>        
     </main>
 
     <!-- Sidebar -->
@@ -152,67 +200,71 @@
             <li>
                 <a href="#soundtrackSubmenu" data-bs-toggle="collapse" class="link-white">Саундтреки</a>
                 <ul class="collapse list-unstyled" id="soundtrackSubmenu">
-                    <li><a href="#" class="link-white">Фильмы</a></li>
-                    <ul>
-                        <li><a href="#" class="link-white">Триллеры</a></li>
-                        <li><a href="#" class="link-white">Драмы</a></li>
-                        <li><a href="#" class="link-white">Комедии</a></li>
-                        <li><a href="#" class="link-white">Фантастика</a></li>
-                        <li><a href="#" class="link-white">Боевики</a></li>
-                        <li><a href="#" class="link-white">Ужасы</a></li>
-                        <li><a href="#" class="link-white">Романтика</a></li>
-                    </ul>
-                    <li><a href="#" class="link-white">Мультфильмы</a></li>
-                    <ul>
-                        <li><a href="#" class="link-white">Приключения</a></li>
-                        <li><a href="#" class="link-white">Семейные</a></li>
-                        <li><a href="#" class="link-white">Фэнтези</a></li>
-                    </ul>
-                    <li><a href="#" class="link-white">Игры</a></li>
-                    <ul>
-                        <li><a href="#" class="link-white">Ролевые</a></li>
-                        <li><a href="#" class="link-white">Шутеры</a></li>
-                        <li><a href="#" class="link-white">Приключенческие</a></li>
-                        <li><a href="#" class="link-white">Стратегии</a></li>
-                        <li><a href="#" class="link-white">Симуляторы</a></li>
-                    </ul>
+                    <li><a href="#" class="link-white">Фильмы</a>
+                        <ul>
+                            <li><a href="#" class="link-white">Триллеры</a></li>
+                            <li><a href="#" class="link-white">Драмы</a></li>
+                            <li><a href="#" class="link-white">Комедии</a></li>
+                            <li><a href="#" class="link-white">Фантастика</a></li>
+                            <li><a href="#" class="link-white">Боевики</a></li>
+                            <li><a href="#" class="link-white">Ужасы</a></li>
+                            <li><a href="#" class="link-white">Романтика</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="link-white">Мультфильмы</a>
+                        <ul>
+                            <li><a href="#" class="link-white">Приключения</a></li>
+                            <li><a href="#" class="link-white">Семейные</a></li>
+                            <li><a href="#" class="link-white">Фэнтези</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="link-white">Игры</a>
+                        <ul>
+                            <li><a href="#" class="link-white">Ролевые</a></li>
+                            <li><a href="#" class="link-white">Шутеры</a></li>
+                            <li><a href="#" class="link-white">Стратегии</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
-            <li>
-                <a href="#albumsSubmenu" data-bs-toggle="collapse" class="link-white">Музыкальные альбомы</a>
-                <ul class="collapse list-unstyled" id="albumsSubmenu">
-                    <li><a href="#" class="link-white">Поп</a></li>
-                    <li><a href="#" class="link-white">Рок</a></li>
-                    <li><a href="#" class="link-white">Классическая музыка</a></li>
-                    <li><a href="#" class="link-white">Электронная музыка</a></li>
-                    <li><a href="#" class="link-white">Хип-хоп</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#audiobooksSubmenu" data-bs-toggle="collapse" class="link-white">Аудиокниги</a>
-                <ul class="collapse list-unstyled" id="audiobooksSubmenu">
-                    <li><a href="#" class="link-white">Художественные</a></li>
-                    <li><a href="#" class="link-white">Научные</a></li>
-                    <li><a href="#" class="link-white">Биографии</a></li>
-                    <li><a href="#" class="link-white">Фантастика</a></li>
-                    <li><a href="#" class="link-white">История</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#podcastsSubmenu" data-bs-toggle="collapse" class="link-white">Подкасты</a>
-                <ul class="collapse list-unstyled" id="podcastsSubmenu">
-                    <li><a href="#" class="link-white">Интервью</a></li>
-                    <li><a href="#" class="link-white">Новости</a></li>
-                    <li><a href="#" class="link-white">Технологии</a></li>
-                    <li><a href="#" class="link-white">Наука</a></li>
-                </ul>
-            </li>
+            <li><a href="/about" class="link-white">О нас</a></li>
+            <li><a href="/contact" class="link-white">Контакты</a></li>
         </ul>
     </nav>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-4">
+        <div class="container">
+            <p class="mb-0">© 2024 Медиа Платформа. Все права защищены.</p>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="/about" class="text-white">О нас</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="/contact" class="text-white">Контакты</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="/privacy" class="text-white">Политика конфиденциальности</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    
+    <!-- Кнопки прокрутки -->
+    <div id="scrollButtons">
+        <button id="scrollUp" class="btn btn-secondary">↑</button>
+        <button id="scrollDown" class="btn btn-secondary">↓</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('scrollUp').onclick = function() {
+            window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' }); // Прокрутка вверх
+        };
+
+        document.getElementById('scrollDown').onclick = function() {
+            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); // Прокрутка вниз
+        };
+    </script>
 </body>
 </html>

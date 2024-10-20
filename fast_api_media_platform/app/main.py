@@ -238,6 +238,19 @@ async def update_media(
         logger.error(f"Ошибка обновления данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка обновления данных")
 
+
+@app.get("/about")
+async def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
+
+@app.get("/contact")
+async def contact(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
+@app.get("/privacy")
+async def privacy(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
+
 '''
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB
 allowed_extensions = {'mp3', 'wav', 'jpg', 'png'}
