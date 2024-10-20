@@ -13,7 +13,7 @@
 
 ![smah](img/smah_molitva.png)
 
-![ani_lorak](img%2Forangevie_sny.png)
+![ani_lorak](image.png)
 
 ![media_info](img/media_info.png)
 
