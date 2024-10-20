@@ -8,13 +8,14 @@ def get_media_files(db: Session):
     """Получить все медиафайлы"""
     return db.query(models.MediaFile).all()
 
-def create_media_file(db: Session, name_music: str, file_name: str, file_path: str, cover_image_path: str, 
+def create_media_file(db: Session, name_music: str, description: str, file_name: str, file_path: str, cover_image_path: str, 
                       category_id: int, genre_id: int, youtube_url: str = None, 
                       rutube_url: str = None, plvideo_url: str = None):
     
     """Создать новый медиафайл с URL"""
     new_media_file = MediaFile(
         name_music=name_music,
+        description=description,
         file_name=file_name,
         file_path=file_path,
         cover_image_path=cover_image_path,
@@ -57,12 +58,13 @@ def create_genre(db: Session, name: str):
     db.refresh(db_genre)
     return db_genre
 
-def update_media_file(db: Session, media_id: int, name_music: str, category_id: int, genre_id: int, youtube_url: str, rutube_url: str, plvideo_url: str):
+def update_media_file(db: Session, media_id: int, name_music: str, description: str, category_id: int, genre_id: int, youtube_url: str, rutube_url: str, plvideo_url: str):
     media_file = db.query(MediaFile).filter(MediaFile.id == media_id).first()
     if media_file is None:
         raise HTTPException(status_code=404, detail="Медиа файл не найден")
 
     media_file.name_music = name_music
+    media_file.description = description
     media_file.category_id = category_id
     media_file.genre_id = genre_id
     media_file.youtube_url = youtube_url

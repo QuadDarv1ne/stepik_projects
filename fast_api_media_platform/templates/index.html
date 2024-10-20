@@ -132,6 +132,7 @@
                         <img src="{{ media_file.cover_image_path }}" class="card-img-top" alt="{{ media_file.file_name }}" loading="lazy">
                         <div class="card-body">
                             <h5 class="card-title">{{ media_file.name_music }}</h5>
+                            <p class="card-text">Описание: {{ media_file.description }}</p>
                             <p class="card-text">Файл: {{ media_file.file_name }}</p>
                             <p class="card-text">Категория: {{ media_file.category.name }}</p>
                             <p class="card-text">Жанр: {{ media_file.genre.name }}</p>

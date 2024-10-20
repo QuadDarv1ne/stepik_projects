@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -7,6 +7,10 @@ class MediaFile(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name_music = Column(String, index=True)
+
+    # Поле для описания музыкальной композиции
+    description = Column(Text, nullable=True)
+
     file_name = Column(String, index=True)
     file_path = Column(String)
     cover_image_path = Column(String)

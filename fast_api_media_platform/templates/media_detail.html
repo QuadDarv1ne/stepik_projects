@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,22 +14,24 @@
     <meta property="og:url" content="{{ request.url }}">
     <style>
         body {
-                background-color: #f8f9fa; /* Светлый фон для контраста */
-                font-family: 'Arial', sans-serif; /* Современный шрифт */
-             }
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
 
         .card {
-            border-radius: 8px; /* Скругленные углы карточек */
-            transition: transform 0.3s; /* Плавный эффект при наведении */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .card:hover {
-            transform: scale(1.007); /* Увеличение карточки при наведении */
+            transform: scale(1.02);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
         .btn {
-            border-radius: 20px; /* Скругленные кнопки */
-            padding: 10px 20px; /* Увеличенный отступ для кнопок */
+            border-radius: 30px;
+            padding: 10px 25px;
         }
 
         .fade-in {
@@ -39,13 +41,33 @@
         .fade-in.show {
             opacity: 1;
         }
-        .row {
-            display: flex;
-            justify-content: space-between;
+
+        .navbar {
+            margin-bottom: 40px;
         }
+
         .video-container {
-            flex: 1;
             margin-left: 20px;
+        }
+
+        #video-player-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #video-iframe {
+            width: 100%;
+            height: 350px;
+        }
+
+        .card-body h5 {
+            font-weight: bold;
+        }
+
+        .audio-player {
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -68,7 +90,7 @@
 
     <div class="container mt-4">
         <h1 class="mb-4">{{ media_file.name_music }}</h1>
-        
+
         <!-- Обертка для изображения и видеоплеера -->
         <div class="row">
             <!-- Колонка для изображения -->
@@ -77,9 +99,10 @@
                     <img src="../{{ media_file.cover_image_path }}" class="card-img-top" alt="Обложка {{ media_file.file_name }}" style="max-width: 100%; height: auto;">
                     <div class="card-body">
                         <h6 class="card-title">Файл: {{ media_file.file_name }}</h6>
+                        <h5 class="card-title">Описание: {{ media_file.description }}</h5>
                         <h5 class="card-title">Категория: {{ media_file.category.name }}</h5>
                         <h5 class="card-title">Жанр: {{ media_file.genre.name }}</h5>
-                        <audio id="audio-player" controls preload="auto">
+                        <audio id="audio-player" class="audio-player" controls preload="auto">
                             <source src="../{{ media_file.file_path }}" type="audio/mpeg">
                             Ваш браузер не поддерживает аудио элемент.
                         </audio>
@@ -108,7 +131,7 @@
                         </select>
 
                         <div id="video-player-container">
-                            <iframe id="video-iframe" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe id="video-iframe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -116,10 +139,11 @@
         </div>
     </div>
 
+    <!-- Подключение скриптов -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
     <script>
-        // Инициализация Plyr с улучшенными настройками для аудиоплеера
+        // Инициализация Plyr для аудиоплеера
         const audioPlayer = new Plyr('#audio-player', {
             controls: [
                 'play', 'progress', 'current-time', 'duration', 'volume', 'settings',
@@ -131,61 +155,33 @@
             volume: 0.8,
             storage: { enabled: true, key: 'plyr_audio' },
             clickToPlay: true,
-            keyboard: { focused: true, global: true },
             autoplay: false,
-            muted: false,
-            captions: { active: true, language: 'auto' },
-            ads: { enabled: false },
-            icons: { url: 'path/to/custom/icons.svg' }
-        });
-
-        // Инициализация Plyr для видеоплеера
-        const videoPlayer = new Plyr('#video-player', {
-            controls: [
-                'play', 'progress', 'current-time', 'duration', 'mute', 'fullscreen'
-            ],
-            autoplay: false,
-            muted: false,
+            muted: false
         });
 
         document.getElementById('video-source').addEventListener('change', (event) => {
-            const selectedOption = event.target.selectedOptions[0]; // Выбранный элемент <option>
+            const selectedOption = event.target.selectedOptions[0];
             const videoPlatform = selectedOption.value;
             let videoUrl = selectedOption.getAttribute('data-url');
 
             if (videoUrl) {
                 let embedUrl = '';
 
-                // Преобразуем обычную ссылку в встраиваемую
                 if (videoPlatform === 'youtube') {
-                    const videoId = videoUrl.split('v=')[1]; // Получаем идентификатор видео
+                    const videoId = videoUrl.split('v=')[1];
                     embedUrl = `https://www.youtube.com/embed/${videoId}`;
                 } else if (videoPlatform === 'rutube') {
-                    const videoId = videoUrl.split('/').pop(); // Идентификатор видео
+                    const videoId = videoUrl.split('/').pop();
                     embedUrl = `https://rutube.ru/play/embed/${videoId}`;
                 } else if (videoPlatform === 'plvideo') {
-                    // Plvideo - возможно потребуется аналогичная логика
                     const videoId = videoUrl.split('/').pop();
                     embedUrl = `https://plvideo.ru/embed/${videoId}`;
                 }
 
-                // Устанавливаем в iframe новый src
-                const videoIframe = document.getElementById('video-iframe');
-                videoIframe.src = embedUrl;
+                document.getElementById('video-iframe').src = embedUrl;
             }
         });
 
-        // Пример кастомного события для аудиоплеера
-        audioPlayer.on('play', () => {
-            console.log('Audio started playing');
-        });
-
-        // Пример обработки ошибок для аудиоплеера
-        audioPlayer.on('error', (event) => {
-            console.error('An error occurred:', event.detail);
-        });
-
-        // Добавление класса для анимации при загрузке
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('card').classList.add('show');
             document.getElementById('video-card').classList.add('show');

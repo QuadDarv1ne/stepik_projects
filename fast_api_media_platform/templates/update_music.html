@@ -38,6 +38,12 @@
                 <input type="text" class="form-control" id="genre" name="genre" value="{{ media_file.genre.name }}">
             </div>
 
+            <!-- Добавляем поле для описания -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required>{{ media_file.description }}</textarea>
+            </div>
+
             <button type="submit" class="btn btn-success">Обновить данные</button>
         </form>
         {% else %}

@@ -27,6 +27,7 @@ class Genre(GenreBase):
 
 class MediaFileBase(BaseModel):
     name_music: str
+    description: str
     file_name: str
     file_path: str
     cover_image_path: str

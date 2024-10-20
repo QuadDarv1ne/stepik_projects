@@ -73,6 +73,7 @@ async def upload_form(request: Request, db: Session = Depends(get_db)):
 @app.post("/upload")
 async def upload_file(
         name_music: str = Form(...),
+        description: str = Form(...),
         music_file: UploadFile = File(...),
         cover_file: UploadFile = File(...),
         category_id: int = Form(...),
@@ -109,6 +110,7 @@ async def upload_file(
         crud.create_media_file(
             db=db,
             name_music=name_music,
+            description=description,
             file_name=music_filename,
             file_path=music_file_path,
             cover_image_path=cover_file_path,
@@ -203,6 +205,7 @@ async def edit_media_form(request: Request, media_id: int, db: Session = Depends
 async def update_media(
         media_id: int,
         name_music: str = Form(...),
+        description: str = Form(...),
         category_id: int = Form(...),
         genre_id: int = Form(...),
         youtube_url: str = Form(None), 
@@ -220,6 +223,7 @@ async def update_media(
             db=db,
             media_id=media_id,
             name_music=name_music,
+            description=description,
             category_id=category_id,
             genre_id=genre_id,
             youtube_url=youtube_url,
