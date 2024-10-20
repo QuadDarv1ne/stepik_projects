@@ -60,8 +60,8 @@
         "cover_image_path": "static/covers/muse_butterflies.jpg",
         "category_id": "1",
         "genre_id": "2",
-        "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "youtube_url": "https://www.youtube.com/watch?v=Yt8I6RgNavc",
+        "rutube_url": "https://rutube.ru/video/178eafc27d87530ae44f3f10ecde8400/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -74,7 +74,7 @@
         "category_id": "2",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "rutube_url": "https://rutube.ru/video/8db1f09a11801a0e04b6bf7fe6ea2bba/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -100,7 +100,7 @@
         "category_id": "2",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "rutube_url": "https://rutube.ru/video/b1ad62123ca219167bb3028f51845478/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -113,7 +113,7 @@
         "category_id": "2",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "rutube_url": "https://rutube.ru/video/66c10da4f1f0a83a6a8fc79483943d51/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -126,7 +126,7 @@
         "category_id": "2",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "rutube_url": "https://rutube.ru/video/9fcff954f5f28fda92a467ab150f2cc9/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -139,7 +139,7 @@
         "category_id": "3",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "rutube_url": "https://rutube.ru/video/46a8c0d4c72faa944522d7386143740c/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -152,8 +152,8 @@
         "category_id": "2",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
-        "plvideo_url": "https://plvideo.ru/"
+        "rutube_url": "https://rutube.ru/video/ae1eeb819ef2daeddf5260642410f28e/",
+        "plvideo_url": "https://plvideo.ru/watch?v=F-0dnCz4mhdJ"
     },
     {
         "id": "13",
@@ -165,8 +165,8 @@
         "category_id": "7",
         "genre_id": "6",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
-        "plvideo_url": "https://plvideo.ru/"
+        "rutube_url": "https://rutube.ru/video/a3306eda88f02996319a462f2d6e5514/",
+        "plvideo_url": "https://plvideo.ru/watch?v=F-0dnCz4mhdJ"
     },
     {
         "id": "14",
@@ -178,8 +178,8 @@
         "category_id": "5",
         "genre_id": "2",
         "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
-        "plvideo_url": "https://plvideo.ru/"
+        "rutube_url": "https://rutube.ru/video/029c2777006336a449d651befc76c460/",
+        "plvideo_url": "https://plvideo.ru/watch?v=F-0dnCz4mhdJ"
     },
     {
         "id": "15",
@@ -190,9 +190,9 @@
         "cover_image_path": "static/covers/coldplay_my_universe_bts.jpg",
         "category_id": "5",
         "genre_id": "2",
-        "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
-        "plvideo_url": "https://plvideo.ru/"
+        "youtube_url": "https://www.youtube.com/watch?v=3YqPKLZF_WU",
+        "rutube_url": "https://rutube.ru/video/e07b7d6137f65a53a11496d81befdfa4/",
+        "plvideo_url": "https://plvideo.ru/watch?v=F-0dnCz4mhdJ"
     },
     {
         "id": "16",
@@ -229,8 +229,8 @@
         "cover_image_path": "static/covers/robert_miles_children.jpg",
         "category_id": "5",
         "genre_id": "6",
-        "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "youtube_url": "https://www.youtube.com/watch?v=CC5ca6Hsb2Q",
+        "rutube_url": "https://rutube.ru/video/d35f038b0781baa2e1c619729d0b2b87/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
@@ -255,8 +255,8 @@
         "cover_image_path": "static/covers/madagaskar.jpg",
         "category_id": "6",
         "genre_id": "2",
-        "youtube_url": "https://www.youtube.com/",
-        "rutube_url": "https://rutube.ru/",
+        "youtube_url": "https://www.youtube.com/watch?v=ApuFuuCJc3s",
+        "rutube_url": "https://rutube.ru/video/14ed6d6a6f90c104f956dbe60f400692/",
         "plvideo_url": "https://plvideo.ru/"
     },
     {
