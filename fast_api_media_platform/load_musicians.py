@@ -22,6 +22,7 @@ def save_data_to_db(data):
             media_file = MediaFile(
                 id=int(item["id"]),
                 name_music=item["name_music"],
+                description=item["description"],
                 file_name=item["file_name"] if item["file_name"] else None,
                 file_path=item["file_path"] if item["file_path"] else None,
                 cover_image_path=item["cover_image_path"] if item["cover_image_path"] else None,
