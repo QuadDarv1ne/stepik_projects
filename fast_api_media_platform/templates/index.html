@@ -25,20 +25,20 @@
             top: 0;
             left: 0;
             background-color: #fda049;
-            padding: 20px;
+            padding: 0px;
             color: white;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
+            transition: width 0.5s ease;
         }
 
         #content {
             margin-left: 300px;
-            padding: 20px;
+            padding: 10px;
             transition: margin-left 0.3s ease;
         }
 
         .navbar-brand {
-            font-weight: bold;
+            font-weight: normal;
             color: #fff;
             text-decoration: none;
         }
@@ -47,7 +47,7 @@
             border: none; /* Убираем границу */
             border-radius: 15px; /* Углы */
             overflow: hidden; /* Обрезаем изображения */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень */
+            box-shadow: 0 4px 15px rgba(193, 63, 253, 0.452); /* Тень */
             margin-bottom: 20px;
             transition: transform 0.3s; /* Анимация при наведении */
         }
@@ -60,12 +60,12 @@
             height: 200px;
             object-fit: cover;
             width: 100%; /* адаптивное изображение */
-            border-bottom: 5px solid #fda049; /* Нижняя граница изображения */
+            border-bottom: 7px solid #fda049; /* Нижняя граница изображения */
         }
 
         .card-title {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: normal;
             color: #333;
         }
 
@@ -127,11 +127,11 @@
             height: 50px; /* Высота кнопок */
             border-radius: 50%; /* Круглая форма кнопок */
             border: none; /* Убираем границу */
-            background-color: #fda049; /* Цвет фона */
+            background-color: #ff9a3b; /* Цвет фона */
             color: white; /* Цвет текста */
             font-size: 18px; /* Размер шрифта */
             cursor: pointer; /* Указатель при наведении */
-            transition: background-color 0.3s; /* Анимация при наведении */
+            transition: background-color 0.5s; /* Анимация при наведении */
         }
 
         #scrollUp:hover, #scrollDown:hover {
@@ -150,7 +150,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
                         <li class="nav-item"><a class="nav-link" href="/upload">Загрузка медиа</a></li>
                         <li class="nav-item"><a class="nav-link" href="/create-category">Создание категории</a></li>
                         <li class="nav-item"><a class="nav-link" href="/create-genre">Создание жанра</a></li>
