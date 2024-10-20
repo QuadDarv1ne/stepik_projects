@@ -163,12 +163,23 @@
     <main id="content" class="container mt-4">
         <h1 class="mb-4">Добро пожаловать в Медиа Платформу</h1>
 
-        <!-- Форма поиска -->
-        <form method="GET" action="/search" class="d-flex flex-column flex-sm-row mb-4">
-            <input type="text" name="genre" class="form-control me-2" placeholder="Жанр">
-            <input type="text" name="category" class="form-control me-2" placeholder="Категория">
-            <button type="submit" class="btn btn-primary">Поиск</button>
-        </form>
+        <form action="/search" method="get" class="d-flex align-items-center mb-4">
+            <div class="input-group me-2">
+                <input type="text" name="query" class="form-control" placeholder="Поиск..." aria-label="Поиск">
+            </div>
+        
+            <select name="category_id" class="form-select me-2" aria-label="Выбор категории">
+                <option value="">Все категории</option>
+                <!-- Опции будут добавлены динамически с помощью JavaScript -->
+            </select>
+        
+            <select name="genre_id" class="form-select me-2" aria-label="Выбор жанра">
+                <option value="">Все жанры</option>
+                <!-- Опции будут добавлены динамически с помощью JavaScript -->
+            </select>
+        
+            <button type="submit" class="btn btn-primary">Искать</button>
+        </form>                
 
         <div class="row">
             {% for media_file in media_files %}
@@ -328,5 +339,47 @@
             window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); // Прокрутка вниз
         };
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Универсальная функция для загрузки данных
+            function loadOptions(url, selectSelector) {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ошибка! Статус: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const selectElement = document.querySelector(selectSelector);
+                        // Очистка предыдущих опций
+                        selectElement.innerHTML = '';
+                        
+                        // Добавляем плейсхолдер
+                        const placeholderOption = document.createElement('option');
+                        placeholderOption.value = '';
+                        placeholderOption.textContent = 'Выберите опцию';
+                        selectElement.appendChild(placeholderOption);
+    
+                        // Заполнение селектора новыми опциями
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.textContent = item.name;
+                            selectElement.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при загрузке данных:', error);
+                        // Отображение уведомления пользователю (например, с помощью alert)
+                        alert('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
+                    });
+            }
+    
+            // Загрузка категорий и жанров при загрузке страницы
+            loadOptions('/api/categories', 'select[name="category_id"]');
+            loadOptions('/api/genres', 'select[name="genre_id"]');
+        });
+    </script>    
 </body>
 </html>

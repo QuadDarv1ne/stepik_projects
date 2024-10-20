@@ -14,6 +14,8 @@ from app.database import engine, SessionLocal
 from werkzeug.utils import secure_filename
 import os
 
+from typing import Optional
+
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -250,6 +252,41 @@ async def contact(request: Request):
 @app.get("/privacy")
 async def privacy(request: Request):
     return templates.TemplateResponse("privacy.html", {"request": request})
+
+
+@app.get("/api/categories")
+async def get_categories(db: Session = Depends(get_db)):
+    categories = crud.get_categories(db)
+    return categories
+
+@app.get("/api/genres")
+async def get_genres(db: Session = Depends(get_db)):
+    genres = crud.get_genres(db)
+    return genres
+
+@app.get("/search")
+async def search(
+    request: Request,
+    query: Optional[str] = None,
+    category_id: Optional[str] = None,
+    genre_id: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    try:
+        # Преобразуем category_id и genre_id в целые числа, если они не пустые
+        category_id = int(category_id) if category_id and category_id.isdigit() else None
+        genre_id = int(genre_id) if genre_id and genre_id.isdigit() else None
+        
+        # Если все параметры пустые, вернуть все карточки музыки
+        if not query and category_id is None and genre_id is None:
+            media_files = crud.get_media_files(db)
+        else:
+            media_files = crud.search_media_files(db, query, category_id, genre_id)
+        
+        return templates.TemplateResponse("index.html", {"request": request, "media_files": media_files})
+    except SQLAlchemyError as e:
+        logger.error(f"Ошибка базы данных: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка базы данных")
 
 '''
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB

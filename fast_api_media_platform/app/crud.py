@@ -1,8 +1,10 @@
+from typing import Optional
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app import models
 from app.models import MediaFile
 from app.schemas import MediaFileCreate
+from sqlalchemy import or_
 
 def get_media_files(db: Session):
     """Получить все медиафайлы"""
@@ -74,3 +76,18 @@ def update_media_file(db: Session, media_id: int, name_music: str, description: 
     db.commit()
     db.refresh(media_file)
     return media_file
+
+def search_media_files(db: Session, query: Optional[str], category_id: Optional[int], genre_id: Optional[int]):
+    # Начинаем с общего запроса
+    query_result = db.query(MediaFile)
+
+    if query:
+        query_result = query_result.filter(MediaFile.name_music.ilike(f"%{query}%"))
+    
+    if category_id is not None:
+        query_result = query_result.filter(MediaFile.category_id == category_id)
+
+    if genre_id is not None:
+        query_result = query_result.filter(MediaFile.genre_id == genre_id)
+
+    return query_result.all()
