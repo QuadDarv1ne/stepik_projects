@@ -124,7 +124,7 @@ body {
 /* Стили для кнопок прокрутки */
 #scrollButtons {
     position: fixed;
-    right: 20px;
+    right: 0px;
     top: 50%;
     display: flex;
     flex-direction: column;
@@ -134,9 +134,9 @@ body {
 
 #scrollUp,
 #scrollDown {
-    width: 40px; /* Увеличение ширины для удобства использования */
-    height: 40px; /* Увеличение высоты для удобства использования */
-    border-radius: 30%;
+    width: 30px; /* Увеличение ширины для удобства использования */
+    height: 30px; /* Увеличение высоты для удобства использования */
+    border-radius: 70%;
     border: none;
     background-color: #ff9a3b;
     color: white;
