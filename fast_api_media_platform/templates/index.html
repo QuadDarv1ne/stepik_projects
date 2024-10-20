@@ -5,139 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
     <meta property="og:title" content="Главная страница - Медиа Платформа">
     <meta property="og:description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
     <meta property="og:url" content="{{ request.url }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        #sidebar {
-            width: 280px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #fda049;
-            padding: 0px;
-            color: white;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            transition: width 0.5s ease;
-        }
-
-        #content {
-            margin-left: 300px;
-            padding: 10px;
-            transition: margin-left 0.3s ease;
-        }
-
-        .navbar-brand {
-            font-weight: normal;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .card {
-            border: none; /* Убираем границу */
-            border-radius: 15px; /* Углы */
-            overflow: hidden; /* Обрезаем изображения */
-            box-shadow: 0 4px 15px rgba(193, 63, 253, 0.452); /* Тень */
-            margin-bottom: 20px;
-            transition: transform 0.3s; /* Анимация при наведении */
-        }
-
-        .card:hover {
-            transform: scale(1.05); /* Увеличение при наведении */
-        }
-
-        .card img {
-            height: 200px;
-            object-fit: cover;
-            width: 100%; /* адаптивное изображение */
-            border-bottom: 7px solid #fda049; /* Нижняя граница изображения */
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: normal;
-            color: #333;
-        }
-
-        .card-text {
-            margin: 5px 0;
-            color: #777;
-        }
-
-        .btn {
-            margin: 5px 0;
-        }
-
-        .form-control {
-            max-width: 100%; /* позволяет занимать всю ширину контейнера */
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        /* Медиазапросы для адаптации под мобильные устройства */
-        @media (max-width: 768px) {
-            #sidebar {
-                width: 100%; /* Sidebar на весь экран */
-                height: auto; /* Высота зависит от контента */
-                position: relative; /* Изменяем позиционирование */
-                padding: 10px; /* Уменьшаем отступы */
-                box-shadow: none; /* Убираем тень для мобильных */
-            }
-
-            #content {
-                margin-left: 0; /* Убираем отступ */
-            }
-        }
-
-        @media (max-width: 576px) {
-            .form-control {
-                max-width: 100%; /* Формы занимают всю ширину на маленьких экранах */
-                padding: 8px; /* Уменьшаем отступы для мобильных устройств */
-            }
-
-            .card img {
-                height: 150px; /* Уменьшаем высоту изображений на маленьких экранах */
-            }
-        }
-
-        /* Стили для кнопок прокрутки */
-        #scrollButtons {
-            position: fixed;
-            right: 20px; /* Отступ от правого края */
-            top: 50%; /* Отступ от верхнего края */
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Отступ между кнопками */
-        }
-
-        #scrollUp, #scrollDown {
-            width: 50px; /* Ширина кнопок */
-            height: 50px; /* Высота кнопок */
-            border-radius: 50%; /* Круглая форма кнопок */
-            border: none; /* Убираем границу */
-            background-color: #ff9a3b; /* Цвет фона */
-            color: white; /* Цвет текста */
-            font-size: 18px; /* Размер шрифта */
-            cursor: pointer; /* Указатель при наведении */
-            transition: background-color 0.5s; /* Анимация при наведении */
-        }
-
-        #scrollUp:hover, #scrollDown:hover {
-            background-color: #e69c3c; /* Цвет при наведении */
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/styles.css" media="print" onload="this.media='all'">
 </head>
 <body>
     <!-- Навигационная панель -->
@@ -170,16 +43,22 @@
         
             <select name="category_id" class="form-select me-2" aria-label="Выбор категории">
                 <option value="">Все категории</option>
-                <!-- Опции будут добавлены динамически с помощью JavaScript -->
+                <!-- Опции будут добавлены динамически с помощью Jinja2 -->
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
             </select>
         
             <select name="genre_id" class="form-select me-2" aria-label="Выбор жанра">
                 <option value="">Все жанры</option>
-                <!-- Опции будут добавлены динамически с помощью JavaScript -->
+                <!-- Опции будут добавлены динамически с помощью Jinja2 -->
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.name }}</option>
+                {% endfor %}
             </select>
         
             <button type="submit" class="btn btn-primary">Искать</button>
-        </form>                
+        </form>
 
         <div class="row">
             {% for media_file in media_files %}
@@ -200,7 +79,7 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>        
+        </div>
     </main>
 
     <!-- Sidebar -->
@@ -316,7 +195,7 @@
         header h4 {
             font-weight: bold; /* Жирный текст заголовка */
             letter-spacing: 1px; /* Межбуквенный интервал */
-            margin-bottom: 0; /* Убираем отступ снизу */
+            margin-bottom: 0px; /* Убираем отступ снизу */
         }
     </style>
     
@@ -331,17 +210,49 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('scrollUp').onclick = function() {
-            window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' }); // Прокрутка вверх
-        };
-
-        document.getElementById('scrollDown').onclick = function() {
-            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); // Прокрутка вниз
-        };
-    </script>
-    <script>
+        // Функция для плавной прокрутки
+        function smoothScroll(direction) {
+            const distance = window.innerHeight * (direction === 'up' ? -1 : 1);
+            window.scrollBy({ top: distance, behavior: 'smooth' });
+        }
+    
+        // Обработка нажатий на кнопки
+        let scrollInterval;
+        let isScrolling = false; // Флаг для отслеживания состояния прокрутки
+    
+        function startScrolling(direction) {
+            if (!isScrolling) {
+                isScrolling = true;
+                scrollInterval = setInterval(() => smoothScroll(direction), 100); // Прокрутка каждые 100 мс
+            }
+        }
+    
+        function stopScrolling() {
+            clearInterval(scrollInterval);
+            isScrolling = false; // Сброс флага при остановке прокрутки
+        }
+    
+        // Установка событий для кнопок прокрутки
+        document.getElementById('scrollUp').addEventListener('mousedown', () => startScrolling('up'));
+        document.getElementById('scrollUp').addEventListener('mouseup', stopScrolling);
+        document.getElementById('scrollUp').addEventListener('mouseleave', stopScrolling); // Остановить прокрутку при уходе курсора
+        document.getElementById('scrollUp').addEventListener('click', function(event) {
+            if (!isScrolling) { // Проверка, не происходит ли прокрутка
+                smoothScroll('up'); // Выполнить однократную прокрутку
+            }
+        });
+    
+        document.getElementById('scrollDown').addEventListener('mousedown', () => startScrolling('down'));
+        document.getElementById('scrollDown').addEventListener('mouseup', stopScrolling);
+        document.getElementById('scrollDown').addEventListener('mouseleave', stopScrolling); // Остановить прокрутку при уходе курсора
+        document.getElementById('scrollDown').addEventListener('click', function(event) {
+            if (!isScrolling) { // Проверка, не происходит ли прокрутка
+                smoothScroll('down'); // Выполнить однократную прокрутку
+            }
+        });
+    
+        // Функция для загрузки данных
         document.addEventListener("DOMContentLoaded", function () {
-            // Универсальная функция для загрузки данных
             function loadOptions(url, selectSelector) {
                 fetch(url)
                     .then(response => {
@@ -352,16 +263,12 @@
                     })
                     .then(data => {
                         const selectElement = document.querySelector(selectSelector);
-                        // Очистка предыдущих опций
                         selectElement.innerHTML = '';
-                        
-                        // Добавляем плейсхолдер
                         const placeholderOption = document.createElement('option');
                         placeholderOption.value = '';
                         placeholderOption.textContent = 'Выберите опцию';
                         selectElement.appendChild(placeholderOption);
     
-                        // Заполнение селектора новыми опциями
                         data.forEach(item => {
                             const option = document.createElement('option');
                             option.value = item.id;
@@ -371,15 +278,13 @@
                     })
                     .catch(error => {
                         console.error('Ошибка при загрузке данных:', error);
-                        // Отображение уведомления пользователю (например, с помощью alert)
                         alert('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
                     });
             }
     
-            // Загрузка категорий и жанров при загрузке страницы
             loadOptions('/api/categories', 'select[name="category_id"]');
             loadOptions('/api/genres', 'select[name="genre_id"]');
         });
-    </script>    
+    </script>               
 </body>
 </html>

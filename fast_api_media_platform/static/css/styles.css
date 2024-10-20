@@ -1,12 +1,39 @@
+/* Общие стили */
 body {
-    background-color: #f8f9fa;
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f8f9fa;
 }
 
+/* Стили боковой панели */
+#sidebar {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fda049;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: width 0.5s ease;
+}
+
+#content {
+    margin-left: 300px; /* Подправлено: чтобы соответствовать ширине боковой панели */
+    padding: 10px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Стили карточек */
 .card {
+    border: none;
     border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(193, 63, 253, 0.452);
+    margin-bottom: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
     background-color: #ffffff;
 }
 
@@ -15,40 +42,63 @@ body {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
+.card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 7px solid #fda049;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.card-text {
+    margin: 5px 0;
+    color: #777;
+}
+
 .card-body {
     padding: 20px;
 }
 
-.card-body h6 {
-    font-size: 1.1rem;
-    color: #6c757d; /* Серый цвет для меток */
-}
-
 .card-body h5 {
     font-weight: bold;
-    color: #343a40; /* Темно-серый цвет для заголовков */
-    margin-bottom: 10px; /* Отступ между заголовками и текстом */
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+.card-body h6 {
+    font-size: 1.1rem;
+    color: #6c757d;
 }
 
 .card-body .info {
-    margin-bottom: 15px; /* Отступ для каждой строки информации */
+    margin-bottom: 15px;
     padding: 10px;
     border-radius: 5px;
-    background-color: #e9ecef; /* Светло-серый фон для информации */
+    background-color: #e9ecef;
 }
 
 .card-body .info i {
-    margin-right: 5px; /* Отступ между иконкой и текстом */
-    color: #007bff; /* Цвет иконок */
+    margin-right: 5px;
+    color: #007bff;
 }
 
-.audio-player {
-    margin-top: 20px;
+/* Стили для форм */
+.form-control {
+    max-width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
+/* Стили для кнопок */
 .btn {
-    border-radius: 25px; /* Закругленные углы кнопок */
-    padding: 10px 30px; /* Отступы внутри кнопок */
+    border-radius: 25px;
+    padding: 10px 30px; /* Подправлено: добавлено значение для горизонтальных отступов */
 }
 
 .btn-primary {
@@ -71,20 +121,51 @@ body {
     border-color: #5a6268;
 }
 
-/* Эффект появления */
+/* Стили для кнопок прокрутки */
+#scrollButtons {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 500; /* Увеличение уровня z-index для обеспечения видимости */
+}
+
+#scrollUp,
+#scrollDown {
+    width: 40px; /* Увеличение ширины для удобства использования */
+    height: 40px; /* Увеличение высоты для удобства использования */
+    border-radius: 30%;
+    border: none;
+    background-color: #ff9a3b;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.5s; /* Добавление эффекта масштабирования */
+}
+
+#scrollUp:hover,
+#scrollDown:hover {
+    background-color: #e69c3c;
+    transform: scale(1.1); /* Эффект увеличения при наведении */
+}
+
+/* Анимация появления */
 .fade-in {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
+
 .fade-in.show {
     opacity: 1;
 }
 
+/* Стили для видеоплеера */
 .video-container {
     margin-left: 20px;
 }
 
-/* Стили для видеоплеера */
 #video-player-container {
     display: flex;
     justify-content: center;
@@ -96,6 +177,82 @@ body {
     height: 350px;
 }
 
+/* Навигационная панель */
 .navbar {
     margin-bottom: 40px;
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 1200px) {
+    #sidebar {
+        width: 240px;
+    }
+
+    #content {
+        margin-left: 260px;
+    }
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        width: 200px;
+    }
+
+    #content {
+        margin-left: 220px;
+    }
+
+    .card img {
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px;
+        box-shadow: none;
+    }
+
+    #content {
+        margin-left: 0;
+    }
+
+    .card img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-control {
+        padding: 8px;
+    }
+
+    .btn {
+        padding: 8px 20px; /* Увеличение отступов для кнопок */
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-body h5 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .card img {
+        height: 120px;
+    }
+
+    .btn {
+        padding: 6px 15px; /* Уменьшение отступов для кнопок */
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
 }

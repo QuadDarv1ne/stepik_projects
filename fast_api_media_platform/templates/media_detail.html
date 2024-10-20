@@ -69,10 +69,10 @@
                 <div class="card mb-4">
                     <img src="../{{ media_file.cover_image_path }}" class="card-img-top" alt="Обложка {{ media_file.file_name }}">
                     <div class="card-body">
-                        <h6 class="card-title">Файл: {{ media_file.file_name }}</h6>
-                        <p class="card-text">Описание: {{ media_file.description }}</p>
-                        <p class="card-text">Категория: {{ media_file.category.name }}</p>
-                        <p class="card-text">Жанр: {{ media_file.genre.name }}</p>
+                        <h6 class="card-title"><strong>Файл:</strong> {{ media_file.file_name }}</h6>
+                        <p class="card-text"><strong>Описание:</strong> {{ media_file.description }}</p>
+                        <p class="card-text"><strong>Категория:</strong> {{ media_file.category.name }}</p>
+                        <p class="card-text"><strong>Жанр:</strong> {{ media_file.genre.name }}</p>
                         <audio id="audio-player" class="audio-player" controls preload="auto">
                             <source src="../{{ media_file.file_path }}" type="audio/mpeg">
                             Ваш браузер не поддерживает аудио элемент.
