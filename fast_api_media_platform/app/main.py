@@ -1,3 +1,5 @@
+import os
+import shutil
 import logging
 from fastapi import FastAPI, Depends, HTTPException, Request, Form, File, UploadFile
 from fastapi.responses import RedirectResponse
@@ -12,7 +14,6 @@ from starlette.responses import HTMLResponse
 from app import models, crud
 from app.database import engine, SessionLocal
 from werkzeug.utils import secure_filename
-import os
 
 from typing import Optional
 
@@ -39,6 +40,13 @@ def get_db():
     finally:
         db.close()
 
+
+def remove_pycache_dirs(root_dir='.'):
+    for dirpath, dirnames, _ in os.walk(root_dir):
+        if '__pycache__' in dirnames:
+            pycache_path = os.path.join(dirpath, '__pycache__')
+            print(f"Удаление {pycache_path}")
+            shutil.rmtree(pycache_path)
 
 # Middleware для кэширования статических файлов
 @app.middleware("http")
@@ -288,7 +296,4 @@ async def search(
         logger.error(f"Ошибка базы данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка базы данных")
 
-'''
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB
-allowed_extensions = {'mp3', 'wav', 'jpg', 'png'}
-'''
+remove_pycache_dirs()
