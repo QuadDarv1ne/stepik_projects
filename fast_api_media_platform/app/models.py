@@ -1,6 +1,10 @@
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class MediaFile(Base):
     __tablename__ = "media_files"
@@ -40,3 +44,9 @@ class Genre(Base):
     name = Column(String, index=True)
 
     media_files = relationship("MediaFile", back_populates="genre")
+
+class User(SQLAlchemyBaseUserTable[int], Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)

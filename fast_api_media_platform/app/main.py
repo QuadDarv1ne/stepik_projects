@@ -292,3 +292,30 @@ async def search(
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Максимальный размер файла 16MB
 allowed_extensions = {'mp3', 'wav', 'jpg', 'png'}
 '''
+
+@app.get("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("auth/login.html", {"request": request})
+
+@app.post("/login")
+async def login_post(request: Request, username: str = Form(...), password: str = Form(...)):
+    # Здесь логика авторизации
+    return templates.TemplateResponse("home.html", {"request": request})
+
+@app.get("/register", response_class=HTMLResponse)
+async def register(request: Request):
+    return templates.TemplateResponse("auth/register.html", {"request": request})
+
+@app.post("/register")
+async def register_post(request: Request, username: str = Form(...), email: str = Form(...), password: str = Form(...)):
+    # Здесь логика регистрации
+    return templates.TemplateResponse("auth/home.html", {"request": request})
+
+@app.get("/password-reset", response_class=HTMLResponse)
+async def password_reset(request: Request):
+    return templates.TemplateResponse("auth/password_reset.html", {"request": request})
+
+@app.post("/password-reset")
+async def password_reset_post(request: Request, email: str = Form(...)):
+    # Здесь логика восстановления пароля
+    return templates.TemplateResponse("home.html", {"request": request})

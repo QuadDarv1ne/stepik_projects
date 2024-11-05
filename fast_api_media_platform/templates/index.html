@@ -26,6 +26,14 @@
                         <li class="nav-item"><a class="nav-link" href="/upload">Загрузка медиа</a></li>
                         <li class="nav-item"><a class="nav-link" href="/create-category">Создание категории</a></li>
                         <li class="nav-item"><a class="nav-link" href="/create-genre">Создание жанра</a></li>
+                        <!-- Кнопка для авторизации -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary ms-2" href="{{ url_for('login') }}">Вход</a>
+                        </li>
+                        <!-- Кнопка для регистрации -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-success ms-2" href="{{ url_for('register') }}">Регистрация</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -59,7 +67,7 @@
         
             <button type="submit" class="btn btn-primary">Искать</button>
         </form>
-
+        
         <div class="row">
             {% for media_file in media_files %}
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -81,7 +89,7 @@
             {% endfor %}
         </div>
     </main>
-
+    
     <!-- Sidebar -->
     <nav id="sidebar" class="bg-orange text-white">
         <header class="p-3 text-center">

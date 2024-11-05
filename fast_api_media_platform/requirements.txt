@@ -5,3 +5,5 @@ pydantic
 jinja2
 python-multipart
 Flask-Mail
+fastapi-users[sqlalchemy]
+databases
