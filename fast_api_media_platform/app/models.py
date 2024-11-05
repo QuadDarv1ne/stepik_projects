@@ -3,55 +3,59 @@ from sqlalchemy.orm import relationship
 from app.database import Base
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class MediaFile(Base):
     __tablename__ = "media_files"
 
     id = Column(Integer, primary_key=True, index=True)
-    name_music = Column(String, index=True)
+    name_music = Column(String(100), nullable=False, index=True, comment="Название музыкального произведения")
+    description = Column(Text, nullable=True, comment="Описание музыкальной композиции")
+    
+    file_name = Column(String, nullable=False, index=True, comment="Имя файла")
+    file_path = Column(String, nullable=False, comment="Путь к файлу")
+    cover_image_path = Column(String, nullable=True, comment="Путь к обложке композиции")
+    
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
+    genre_id = Column(Integer, ForeignKey("genres.id"), nullable=False)
 
-    # Поле для описания музыкальной композиции
-    description = Column(Text, nullable=True)
-
-    file_name = Column(String, index=True)
-    file_path = Column(String)
-    cover_image_path = Column(String)
-    category_id = Column(Integer, ForeignKey("categories.id"))
-    genre_id = Column(Integer, ForeignKey("genres.id"))
-
-    # Новые поля для различных видео URL
-    youtube_url = Column(String(255), nullable=True)
-    rutube_url = Column(String(255), nullable=True)
-    plvideo_url = Column(String(255), nullable=True)
+    # Дополнительные поля для ссылок на видео
+    youtube_url = Column(String(255), nullable=True, comment="Ссылка на YouTube")
+    rutube_url = Column(String(255), nullable=True, comment="Ссылка на RuTube")
+    plvideo_url = Column(String(255), nullable=True, comment="Ссылка на Plvideo")
     
     category = relationship("Category", back_populates="media_files")
     genre = relationship("Genre", back_populates="media_files")
+
 
 class Category(Base):
     __tablename__ = "categories"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String(50), nullable=False, unique=True, index=True, comment="Название категории")
+    
+    media_files = relationship("MediaFile", back_populates="category", cascade="all, delete")
 
-    media_files = relationship("MediaFile", back_populates="category")
 
 class Genre(Base):
     __tablename__ = "genres"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String(50), nullable=False, unique=True, index=True, comment="Название жанра")
+    
+    media_files = relationship("MediaFile", back_populates="genre", cascade="all, delete")
 
-    media_files = relationship("MediaFile", back_populates="genre")
 
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(50), unique=True, nullable=False, index=True)
-    email = Column(String(100), unique=True, nullable=False, index=True)
-    password_hash = Column(String(128), nullable=False)
-    is_active = Column(Boolean, default=True)  # Поле для деактивации пользователя, если нужно
-    role_id = Column(Integer, ForeignKey("roles.id"))
-
+    username = Column(String(50), unique=True, nullable=False, index=True, comment="Имя пользователя")
+    email = Column(String(100), unique=True, nullable=False, index=True, comment="Электронная почта")
+    password_hash = Column(String(128), nullable=False, comment="Хешированный пароль")
+    profile_image_path = Column(String, nullable=True, comment="Путь к фотографии профиля")
+    is_active = Column(Boolean, default=True, comment="Статус активности пользователя")
+    
+    role_id = Column(Integer, ForeignKey("roles.id"), nullable=False)
     role = relationship("Role", back_populates="users")
 
     def set_password(self, password):
@@ -62,10 +66,11 @@ class User(Base):
         """Проверяет пароль."""
         return check_password_hash(self.password_hash, password)
 
+
 class Role(Base):
     __tablename__ = "roles"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50), unique=True, nullable=False)  # Например, "admin", "user", и т.д.
+    name = Column(String(50), unique=True, nullable=False, index=True, comment="Название роли, например, admin, user")
 
-    users = relationship("User", back_populates="role")
+    users = relationship("User", back_populates="role", cascade="all, delete")

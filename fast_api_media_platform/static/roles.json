@@ -1,0 +1,5 @@
+[
+    {"name": "Admin"},
+    {"name": "User"},
+    {"name": "Moderator"}
+]

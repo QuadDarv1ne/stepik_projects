@@ -1,8 +1,8 @@
 import os
 import shutil
 import logging
-from fastapi import FastAPI, Depends, HTTPException, Request, Form, File, UploadFile
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Depends, HTTPException, Request, Form, File, UploadFile, APIRouter, Request
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -11,7 +11,7 @@ from starlette.requests import Request
 from app.models import MediaFile
 from starlette.responses import HTMLResponse
 
-from app import models, crud
+from app import models, crud, schemas
 from app.database import engine, SessionLocal
 from werkzeug.utils import secure_filename
 
@@ -296,4 +296,65 @@ async def search(
         logger.error(f"Ошибка базы данных: {e}")
         raise HTTPException(status_code=500, detail="Ошибка базы данных")
 
+@app.get("/register", name="register")
+async def register(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
+@app.post("/register")
+async def register_user(
+    request: Request,
+    username: str = Form(...),
+    email: str = Form(...),
+    password: str = Form(...),
+    db: Session = Depends(get_db)  # Получаем сессию базы данных
+):
+    user_create = schemas.UserCreate(username=username, email=email, password=password)
+    
+    try:
+        crud.create_user(db=db, user=user_create)  # Создаем пользователя
+        return RedirectResponse(url="/login", status_code=303)  # Перенаправить на страницу входа
+    except ValueError as ve:
+        return templates.TemplateResponse("register.html", {
+            "request": request,
+            "error": str(ve)  # Показать сообщение об ошибке на странице регистрации
+        })
+    except Exception as e:
+        logger.error(f"Ошибка при регистрации пользователя: {e}")
+        return templates.TemplateResponse("register.html", {
+            "request": request,
+            "error": "Не удалось создать пользователя. Пожалуйста, попробуйте снова."
+        })
+
+@app.get("/login", response_class=templates.TemplateResponse)
+async def login_form(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.post("/login")
+async def login(
+    request: Request,
+    username: str = Form(...),
+    password: str = Form(...)
+):
+    user = await crud.authenticate_user(username=username, password=password)
+    if not user:
+        return templates.TemplateResponse("login.html", {
+            "request": request,
+            "error": "Неверное имя пользователя или пароль"
+        })
+    
+    response = RedirectResponse(url="/", status_code=303)
+    response.set_cookie(key="user_id", value=str(user.id))  # Store user id in cookies
+    return response
+
+@app.exception_handler(SQLAlchemyError)
+async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError):
+    logger.error(f"SQLAlchemy ошибка: {exc}")
+    return JSONResponse(status_code=500, content={"detail": "Ошибка базы данных"})
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Ошибка: {exc}")
+    return JSONResponse(status_code=500, content={"detail": "Внутренняя ошибка сервера"})
+
+# Функция для удаления директорий __pycache__ (если необходимо)
 remove_pycache_dirs()

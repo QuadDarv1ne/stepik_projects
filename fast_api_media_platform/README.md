@@ -109,6 +109,15 @@ fast_api_media_platform/
 ### Загрузка музыки и категорий
 
 ```
+git checkout full_music
+git status
+git add .
+git commit -m "Описание изменений"
+git pull origin full_music
+git push origin full_music
+```
+
+```
 - Загрузка данных в таблицы БД: "Жанры" и "Категории"
 python .\populate_data.py
 
