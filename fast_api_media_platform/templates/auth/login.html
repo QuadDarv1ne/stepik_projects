@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Вход</h1>
+    <form action="{{ url_for('login') }}" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Имя пользователя или почта:</label>
+            <input type="text" name="username" class="form-control" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль:</label>
+            <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+        <div class="mt-3">
+            <a href="{{ url_for('password_reset') }}" class="link-primary">Забыли пароль?</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

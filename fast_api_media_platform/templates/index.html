@@ -11,197 +11,34 @@
     <meta property="og:description" content="Медиа Платформа - слушайте и загружайте любимую музыку.">
     <meta property="og:url" content="{{ request.url }}">
     <link rel="stylesheet" href="/static/css/styles.css" media="print" onload="this.media='all'">
-    <style>
-        /* Цвета */
-        :root {
-            --bg-orange: #ffffff;
-            --text-white: white; /* Белый цвет текста */
-            --link-bg-hover: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон при наведении для ссылок */
-            --button-bg: #007bff;
-            --button-bg-hover: #0056b3;
-            --auth-button-bg: #30e420; /* Зеленый цвет для кнопок */
-            --auth-button-bg-hover: #30e420; /* Темнее зеленый при наведении */
-        }
-        
-        /* Общие стили */
-        body {
-            font-family: Arial, sans-serif; /* Установка шрифта */
-            background-color: var(--bg-orange); /* Установка фона */
-        }
-        
-        .text-white {
-            color: var(--text-white) !important; /* Белый цвет текста */
-        }
-        
-        /* Боковая панель */
-        #sidebar {
-            position: fixed; /* Закрепить боковую панель слева */
-            height: 100vh; /* Высота на всю высоту экрана */
-            overflow-y: auto; /* Прокрутка при необходимости */
-            z-index: 100; /* Слой выше контента */
-            transition: width 0.5s ease; /* Плавное изменение ширины */
-            box-shadow: 2px 0 5px rgba(57, 54, 255, 0.527); /* Тень для боковой панели */
-        }
-        
-        /* Стили для ссылок */
-        .link-white {
-            color: var(--text-white); /* Белый цвет ссылок */
-            padding: 15px; /* Отступы для ссылок */
-            text-decoration: none; /* Убираем подчеркивание */
-            display: block; /* Сделаем ссылку блочным элементом */
-            border-radius: 7px; /* Закругленные углы */
-            transition: background-color 0.5s; /* Плавное изменение фона */
-        }
-        
-        .link-white:hover {
-            background-color: var(--link-bg-hover); /* Полупрозрачный фон при наведении */
-        }
-        
-        /* Стили для вложенного списка */
-        .sublist {
-            list-style-type: none; /* Убираем маркеры */
-            padding: 0; /* Убираем отступы */
-        }
-        
-        .sublist li {
-            margin-bottom: 7px; /* Отступ между элементами вложенного списка */
-        }
-        
-        .sublist a {
-            background-color: rgba(255, 255, 255, 0.2); /* Фон для вложенных ссылок */
-            border-radius: 7px; /* Закругленные углы для вложенных ссылок */
-            padding: 8px 10px; /* Отступы для вложенных ссылок */
-            transition: background-color 0.3s; /* Плавное изменение фона */
-        }
-        
-        .sublist a:hover {
-            background-color: rgba(255, 255, 255, 0.3); /* Изменение фона при наведении */
-        }
-        
-        /* Кнопки прокрутки */
-        .scroll-button {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            z-index: 1000;
-            background-color: var(--button-bg);
-            color: var(--text-white);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s; /* Плавный переход для фона и трансформации */
-        }
-    
-        .scroll-button:hover {
-            background-color: var(--button-bg-hover);
-            transform: scale(1.1); /* Увеличение при наведении */
-        }
-    
-        /* Стили для кнопок авторизации и регистрации */
-        .auth-button {
-            background-color: var(--auth-button-bg); /* Зеленый цвет для кнопок */
-            color: var(--text-white);
-            border: none; /* Убираем рамку */
-            border-radius: 5px; /* Закругленные углы */
-            padding: 5px 10px; /* Увеличение отступов для удобства нажатия */
-            text-align: center;
-            transition: background-color 0.3s, transform 0.2s; /* Плавный переход для фона и трансформации */
-            cursor: pointer; /* Указатель мыши при наведении */
-        }
-
-        /* Стили для кнопки при наведении */
-        .auth-button:hover {
-            background-color: var(--auth-button-bg-hover); /* Темнее зеленый при наведении */
-            transform: scale(1.03); /* Увеличение при наведении */
-        }
-
-        /* Если кнопки находятся в контейнере с flex */
-        .auth-buttons-container {
-            display: flex; /* Устанавливаем flex-контейнер */
-            gap: 10px; /* Отступ между кнопками */
-        }
-    
-        .auth-button:hover {
-            background-color: var(--auth-button-bg-hover); /* Темнее зеленый при наведении */
-            transform: scale(1.05); /* Увеличение при наведении */
-        }
-    
-        /* Центрирование кнопок прокрутки */
-        .scroll-buttons-container {
-            position: fixed;
-            right: 20px; /* Отступ от правого края */
-            top: 50%; /* Центрирование по вертикали */
-            transform: translateY(-50%); /* Центрирование кнопок по вертикали */
-            display: flex; /* Использование flexbox для размещения кнопок */
-            flex-direction: column; /* Расположение кнопок в колонку */
-            gap: 10px; /* Отступ между кнопками */
-        }
-
-        /* Индивидуальные стили для кнопок прокрутки */
-        .scroll-button {
-            background-color: var(--button-bg);
-            color: var(--text-white);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s; /* Плавный переход для фона и трансформации */
-        }
-
-        /* Отдельный стиль для кнопки прокрутки вверх */
-        #scroll-up {
-            margin-bottom: 70px; /* Отступ снизу, чтобы расположить кнопку выше */
-        }
-
-        /* Отдельный стиль для кнопки прокрутки вниз */
-        #scroll-down {
-            margin-top: 70px;  /* Уберите это свойство, если хотите использовать gap */
-        }
-
-        .scroll-button:hover {
-            background-color: var(--button-bg-hover);
-            transform: scale(1.1); /* Увеличение при наведении */
-        }
-    </style>    
 </head>
 <body>
     <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">Медиа Платформа</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/upload">Загрузка музыки</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/create-category">Создание категории</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/create-genre">Создание жанра</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Регистрация</a>
-                    </li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">Медиа Платформа</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/upload">Загрузка медиа</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/create-category">Создание категории</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/create-genre">Создание жанра</a></li>
+                        <!-- Кнопка для авторизации -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary ms-2" href="{{ url_for('login') }}">Вход</a>
+                        </li>
+                        <!-- Кнопка для регистрации -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-success ms-2" href="{{ url_for('register') }}">Регистрация</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <!-- Основное содержимое -->
     <main id="content" class="container mt-4">
@@ -230,7 +67,7 @@
         
             <button type="submit" class="btn btn-primary">Искать</button>
         </form>
-
+        
         <div class="row">
             {% for media_file in media_files %}
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -252,8 +89,8 @@
             {% endfor %}
         </div>
     </main>
-
-    <!-- Боковая панель -->
+    
+    <!-- Sidebar -->
     <nav id="sidebar" class="bg-orange text-white">
         <header class="p-3 text-center">
             <h4 class="text-uppercase fw-bold">Классификация</h4>
@@ -261,81 +98,168 @@
         <ul class="list-unstyled">
             <li>
                 <a href="#soundtrackSubmenu" data-bs-toggle="collapse" class="link-white d-flex align-items-center">
-                    <i class="fas fa-music me-2"></i> Звуковые дорожки
+                    <i class="fas fa-music me-2"></i> <!-- Иконка для категории -->
+                    Саундтреки
                 </a>
-                <ul class="collapse sublist" id="soundtrackSubmenu">
-                    <li><a href="#" class="link-white">Электронная музыка</a></li>
-                    <li><a href="#" class="link-white">Классическая музыка</a></li>
-                    <li><a href="#" class="link-white">Поп-музыка</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#genreSubmenu" data-bs-toggle="collapse" class="link-white d-flex align-items-center">
-                    <i class="fas fa-film me-2"></i> Жанры
-                </a>
-                <ul class="collapse sublist" id="genreSubmenu">
-                    <li><a href="#" class="link-white">Комедии</a></li>
-                    <li><a href="#" class="link-white">Драмы</a></li>
-                    <li><a href="#" class="link-white">Приключения</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#gamesSubmenu" data-bs-toggle="collapse" class="link-white d-flex align-items-center">
-                    <i class="fas fa-gamepad me-2"></i> Игры
-                </a>
-                <ul class="collapse sublist" id="gamesSubmenu">
-                    <li><a href="#" class="link-white">Экшены</a></li>
-                    <li><a href="#" class="link-white">Ролевые</a></li>
-                    <li><a href="#" class="link-white">Приключенческие</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#tvSubmenu" data-bs-toggle="collapse" class="link-white d-flex align-items-center">
-                    <i class="fas fa-tv me-2"></i> Телевидение
-                </a>
-                <ul class="collapse sublist" id="tvSubmenu">
-                    <li><a href="#" class="link-white">Сериалы</a></li>
-                    <li><a href="#" class="link-white">Документальные</a></li>
+                <ul class="collapse list-unstyled" id="soundtrackSubmenu">
+                    <li>
+                        <a href="#" class="link-white">Фильмы</a>
+                        <ul class="sublist">
+                            <li><a href="#" class="link-white">Триллеры</a></li>
+                            <li><a href="#" class="link-white">Драмы</a></li>
+                            <li><a href="#" class="link-white">Комедии</a></li>
+                            <li><a href="#" class="link-white">Фантастика</a></li>
+                            <li><a href="#" class="link-white">Боевики</a></li>
+                            <li><a href="#" class="link-white">Ужасы</a></li>
+                            <li><a href="#" class="link-white">Романтика</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="link-white">Мультфильмы</a>
+                        <ul class="sublist">
+                            <li><a href="#" class="link-white">Приключения</a></li>
+                            <li><a href="#" class="link-white">Семейные</a></li>
+                            <li><a href="#" class="link-white">Фэнтези</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="link-white">Игры</a>
+                        <ul class="sublist">
+                            <li><a href="#" class="link-white">Ролевые</a></li>
+                            <li><a href="#" class="link-white">Шутеры</a></li>
+                            <li><a href="#" class="link-white">Стратегии</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
         </ul>
     </nav>
 
-    <!-- Центрированная панель кнопок прокрутки -->
-    <div class="scroll-buttons-container">
-        <button class="scroll-button" id="scroll-up" title="Прокрутить вверх">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="scroll-button" id="scroll-down" title="Прокрутить вниз">
-            <i class="fas fa-arrow-down"></i>
-        </button>
+    <style>
+        /* Цвета */
+        .bg-orange {
+            background-color: #FF7F50; /* Яркий коралловый цвет для фона */
+        }
+
+        .text-white {
+            color: white !important; /* Белый цвет текста */
+        }
+
+        /* Боковая панель */
+        #sidebar {
+            position: fixed; /* Закрепить боковую панель слева */
+            height: 100vh; /* Высота на всю высоту экрана */
+            overflow-y: auto; /* Прокрутка при необходимости */
+            z-index: 100; /* Слой выше контента */
+            transition: width 0.5s ease; /* Плавное изменение ширины */
+            box-shadow: 2px 0 5px rgba(57, 54, 255, 0.527); /* Тень для боковой панели */
+        }
+
+        .link-white {
+            color: white; /* Белый цвет ссылок */
+            padding: 10px 15px; /* Отступы для ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+            display: block; /* Сделаем ссылку блочным элементом */
+            border-radius: 7px; /* Закругленные углы */
+            transition: background-color 0.5s; /* Плавное изменение фона */
+            position: relative; /* Для псевдоэлементов */
+        }
+
+        .link-white:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон при наведении */
+        }
+
+        .collapse ul {
+            padding-left: 0px; /* Отступ для вложенных списков */
+        }
+
+        /* Стили для вложенного списка */
+        .sublist {
+            list-style-type: none; /* Убираем маркеры */
+            padding: 0; /* Убираем отступы */
+        }
+
+        .sublist li {
+            margin-bottom: 7px; /* Отступ между элементами вложенного списка */
+        }
+
+        .sublist a {
+            background-color: rgba(255, 255, 255, 0.2); /* Фон для вложенных ссылок */
+            border-radius: 7px; /* Закругленные углы для вложенных ссылок */
+            padding: 8px 12px; /* Отступы для вложенных ссылок */
+            transition: background-color 0.5s; /* Плавное изменение фона */
+        }
+
+        .sublist a:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* Ярче при наведении */
+        }
+
+        /* Иконки */
+        .fas {
+            font-size: 25px; /* Размер иконок */
+        }
+
+        /* Заголовок */
+        header h4 {
+            font-weight: bold; /* Жирный текст заголовка */
+            letter-spacing: 1px; /* Межбуквенный интервал */
+            margin-bottom: 0px; /* Убираем отступ снизу */
+        }
+    </style>
+    
+    <!-- Кнопки прокрутки -->
+    <div id="scrollButtons">
+        <button id="scrollUp" class="btn btn-secondary">↑</button>
+        <button id="scrollDown" class="btn btn-secondary">↓</button>
     </div>
 
-	<!-- Подключение футера -->
+    <!-- Подключение футера -->
     {% include 'layouts/footer.html' %}
-	
-    <!-- Подключение JavaScript для Bootstrap и прокрутки -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Прокрутка страницы вверх
-        document.getElementById('scroll-up').addEventListener('mousedown', function() {
-            const scrollInterval = setInterval(function() {
-                window.scrollBy(0, -100); // Прокрутка на 50 пикселей вверх
-            }, 100);
-            document.getElementById('scroll-up').addEventListener('mouseup', () => clearInterval(scrollInterval));
-            document.getElementById('scroll-up').addEventListener('mouseleave', () => clearInterval(scrollInterval));
+        // Функция для плавной прокрутки
+        function smoothScroll(direction) {
+            const distance = window.innerHeight * (direction === 'up' ? -1 : 1);
+            window.scrollBy({ top: distance, behavior: 'smooth' });
+        }
+    
+        // Обработка нажатий на кнопки
+        let scrollInterval;
+        let isScrolling = false; // Флаг для отслеживания состояния прокрутки
+    
+        function startScrolling(direction) {
+            if (!isScrolling) {
+                isScrolling = true;
+                scrollInterval = setInterval(() => smoothScroll(direction), 100); // Прокрутка каждые 100 мс
+            }
+        }
+    
+        function stopScrolling() {
+            clearInterval(scrollInterval);
+            isScrolling = false; // Сброс флага при остановке прокрутки
+        }
+    
+        // Установка событий для кнопок прокрутки
+        document.getElementById('scrollUp').addEventListener('mousedown', () => startScrolling('up'));
+        document.getElementById('scrollUp').addEventListener('mouseup', stopScrolling);
+        document.getElementById('scrollUp').addEventListener('mouseleave', stopScrolling); // Остановить прокрутку при уходе курсора
+        document.getElementById('scrollUp').addEventListener('click', function(event) {
+            if (!isScrolling) { // Проверка, не происходит ли прокрутка
+                smoothScroll('up'); // Выполнить однократную прокрутку
+            }
         });
-
-        // Прокрутка страницы вниз
-        document.getElementById('scroll-down').addEventListener('mousedown', function() {
-            const scrollInterval = setInterval(function() {
-                window.scrollBy(0, 100); // Прокрутка на 50 пикселей вниз
-            }, 100);
-            document.getElementById('scroll-down').addEventListener('mouseup', () => clearInterval(scrollInterval));
-            document.getElementById('scroll-down').addEventListener('mouseleave', () => clearInterval(scrollInterval));
+    
+        document.getElementById('scrollDown').addEventListener('mousedown', () => startScrolling('down'));
+        document.getElementById('scrollDown').addEventListener('mouseup', stopScrolling);
+        document.getElementById('scrollDown').addEventListener('mouseleave', stopScrolling); // Остановить прокрутку при уходе курсора
+        document.getElementById('scrollDown').addEventListener('click', function(event) {
+            if (!isScrolling) { // Проверка, не происходит ли прокрутка
+                smoothScroll('down'); // Выполнить однократную прокрутку
+            }
         });
-		
-		// Функция для загрузки данных
+    
+        // Функция для загрузки данных
         document.addEventListener("DOMContentLoaded", function () {
             function loadOptions(url, selectSelector) {
                 fetch(url)
@@ -369,6 +293,6 @@
             loadOptions('/api/categories', 'select[name="category_id"]');
             loadOptions('/api/genres', 'select[name="genre_id"]');
         });
-    </script>
+    </script>               
 </body>
 </html>

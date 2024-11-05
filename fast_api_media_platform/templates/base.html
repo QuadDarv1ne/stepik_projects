@@ -51,11 +51,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/create-genre">Создание жанра</a>
                     </li>
+                    <!-- Кнопка для авторизации -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Вход</a>
+                        <a class="btn btn-outline-primary ms-2" href="{{ url_for('login') }}">Вход</a>
                     </li>
+                    <!-- Кнопка для регистрации -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Регистрация</a>
+                        <a class="btn btn-outline-success ms-2" href="{{ url_for('register') }}">Регистрация</a>
                     </li>
                 </ul>
             </div>

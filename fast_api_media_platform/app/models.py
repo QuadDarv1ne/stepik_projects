@@ -1,7 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, Boolean
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
-from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 
 class MediaFile(Base):
@@ -45,10 +48,11 @@ class Genre(Base):
     media_files = relationship("MediaFile", back_populates="genre", cascade="all, delete")
 
 
-class User(Base):
+class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+<<<<<<< HEAD
     username = Column(String(50), unique=True, nullable=False, index=True, comment="Имя пользователя")
     email = Column(String(100), unique=True, nullable=False, index=True, comment="Электронная почта")
     password_hash = Column(String(128), nullable=False, comment="Хешированный пароль")
@@ -74,3 +78,6 @@ class Role(Base):
     name = Column(String(50), unique=True, nullable=False, index=True, comment="Название роли, например, admin, user")
 
     users = relationship("User", back_populates="role", cascade="all, delete")
+=======
+    username = Column(String, unique=True, index=True)
+>>>>>>> 5b226d76a19ca7ee0b6f398c970d0a3e1558c542
